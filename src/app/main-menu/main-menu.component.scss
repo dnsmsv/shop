@@ -1,7 +1,53 @@
+#main-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 #logo {
+  flex: 0 0 142px;
   display: inline-block;
   background: url("../../assets/logo.png") no-repeat;
   block-size: cover;
   height: 50px;
-  width: 200px;
+  padding-right: 10px;
+}
+
+app-catalog-menu {
+  flex: 1;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+app-search-form {
+  flex: 10;
+  display: inline-block;
+}
+
+#account {
+  flex: 0 0 25px;
+  display: inline-block;
+  background: url("../../assets/user.png");
+  block-size: cover;
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#account:hover {
+  background: url("../../assets/selected-user.png");
+}
+
+#orderList {
+  flex: 0 0 25px;
+  display: inline-block;
+  background: url("../../assets/order-list.png");
+  block-size: cover;
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#orderList:hover {
+  background: url("../../assets/selected-order-list.png");
 }

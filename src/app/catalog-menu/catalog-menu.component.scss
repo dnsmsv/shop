@@ -1,0 +1,18 @@
+#catalogBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px;
+}
+
+#catalog {
+  background: url("../../assets/catalog.png") no-repeat;
+  width: 20px;
+  height: 20px;
+  padding-right: 5px;
+  display: inline-block;
+}
+
+span {
+  display: inline-block;
+}
