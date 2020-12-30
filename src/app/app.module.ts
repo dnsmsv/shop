@@ -14,6 +14,7 @@ import { appRoutes } from 'src/routes';
 import { CatalogMenuComponent } from './catalog-menu/catalog-menu.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { CatalogComponent } from './catalog/catalog.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,1 +1,17 @@
-<div>search-form works!</div>
+<form 
+  id="searchForm" 
+  (ngSubmit)="search()"
+  [formGroup]="form">
+  <input 
+    id="searchInp" 
+    class="inp"
+    [(ngModel)]="text"
+    placeholder="Search in Shop">
+  <button 
+    id="searchBtn"
+    class="btn"
+    type="submit"
+    [disabled]="form.invalid">
+    <div id="searchIcon"></div>
+  </button>
+</form>

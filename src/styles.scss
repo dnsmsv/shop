@@ -1,9 +1,12 @@
+$base-color: #6b70de;
+$selected-color: #6065c9;
+
 body {
   font-family: "Open Sans", sans-serif;
 }
 
 .btn {
-  background-color: #6b70de;
+  background-color: $base-color;
   color: white;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -12,14 +15,14 @@ body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
   border: 0;
-  height: 2.1em;
+  height: 2.5em;
   border-radius: 3px;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
 }
 
 .btn:hover {
-  background-color: #6065c9;
+  background-color: $selected-color;
 }
 
 .tooltip {
@@ -30,7 +33,7 @@ body {
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  color: #6065c9be;
+  color: $selected-color;
   background-color: rgba(255, 255, 255, 0.438);
   text-align: center;
   border-radius: 6px;
@@ -44,18 +47,25 @@ body {
   transition: opacity 0.3s;
 }
 
-// .tooltip .tooltiptext::after {
-//   content: "";
-//   position: absolute;
-//   top: 100%;
-//   left: 50%;
-//   margin-left: -5px;
-//   border-width: 5px;
-//   border-style: solid;
-//   border-color: #555 transparent transparent transparent;
-// }
-
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.inp {
+  font-family: "Open Sans", sans-serif;
+  color: gray;
+  height: 2.5em;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  font-size: 1em;
+  border: $base-color 2px solid;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.inp:focus {
+  color: #363636;
 }
