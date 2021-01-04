@@ -1,0 +1,38 @@
+#slider {
+  display: flex;
+  height: 300px;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  background: white;
+
+  #leftBtn {
+    background: url("../../assets/left-arrow.png") no-repeat center;
+    width: 30px;
+    height: 100%;
+  }
+
+  #selectors {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    .selector {
+      width: 15px;
+      height: 15px;
+      background: url("../../assets/selector.png");
+      opacity: 0.5;
+      margin: 0 5px;
+    }
+
+    .active {
+      opacity: 0.95;
+    }
+  }
+
+  #rightBtn {
+    background: url("../../assets/right-arrow.png") no-repeat center;
+    width: 30px;
+    height: 100%;
+  }
+}

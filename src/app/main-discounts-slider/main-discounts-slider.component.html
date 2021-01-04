@@ -1,0 +1,10 @@
+<div id="slider"
+  [style.background]="(discountUrls?.length) ? 'url(' + discountUrls[selectedIndex] + ')' : ''">
+  <div id="leftBtn" (click)="leftBtnHandler()"></div>
+  <div id="selectors">
+    <div class="selector" *ngFor="let discountUrl of discountUrls; index as i;"
+      [class.active]="discountUrl && discountUrl === discountUrls[selectedIndex]"
+      (click)="selectorHandler(i)"></div>
+  </div>
+  <div id="rightBtn" (click)="rightBtnHandler()"></div>
+</div>

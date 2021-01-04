@@ -15,6 +15,13 @@ import { CatalogMenuComponent } from './catalog-menu/catalog-menu.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DatabaseService } from './services/database.service';
+import { MainDiscountsSliderComponent } from './main-discounts-slider/main-discounts-slider.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -28,15 +35,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CatalogMenuComponent,
     SearchFormComponent,
     CatalogComponent,
+    MainDiscountsSliderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
   ],
-  providers: [],
+  providers: [DatabaseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
