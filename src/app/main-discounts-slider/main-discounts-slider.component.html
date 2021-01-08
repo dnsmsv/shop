@@ -1,5 +1,5 @@
 <div id="slider"
-  [style.background]="(discountUrls?.length) ? 'url(' + discountUrls[selectedIndex] + ')' : ''">
+  [style.background]="(discountUrls?.length) ? 'url(' + discountUrls[selectedIndex] + ') no-repeat' : ''">
   <div id="leftBtn" (click)="leftBtnHandler()"></div>
   <div id="selectors">
     <div class="selector" *ngFor="let discountUrl of discountUrls; index as i;"

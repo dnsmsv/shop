@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../services/database.service';
+import { CatalogService } from '../services/catalog.service';
 
 @Component({
   selector: 'app-catalog-menu',
@@ -7,11 +7,22 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./catalog-menu.component.scss'],
 })
 export class CatalogMenuComponent implements OnInit {
-  constructor(private databaseService: DatabaseService) {}
+  constructor(private catalogService: CatalogService) {}
 
-  ngOnInit(): void {}
+  opened: boolean = false;
 
-  openCatalogMenu() {
-    this.databaseService.postImg();
+  ngOnInit(): void {
+    this.catalogService.catalogVisibility.subscribe((visibility) => {
+      this.opened = visibility;
+      console.log(visibility);
+    });
+  }
+
+  showCatalogMenu() {
+    this.catalogService.showCatalog();
+  }
+
+  hideCatalogMenu() {
+    this.catalogService.hideCatalog();
   }
 }

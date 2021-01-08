@@ -5,6 +5,10 @@ import { MainDiscount } from '../models/main-discount.model';
 import { Product } from '../models/product.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HighCategory } from '../models/high-category.model';
+import { MediumCategory } from '../models/medium-category.model';
+import { LowCategory } from '../models/low-category.model';
+import { LowestCategory } from '../models/lowest-category.model';
 
 @Injectable({
   providedIn: 'root',
@@ -59,23 +63,83 @@ export class DatabaseService {
       .subscribe(() => console.log('Success'));
   }
 
-  // postProduct() {
-  //   const p = new Product();
-  //   p.id = 1;
-  //   p.name = 'Acvafor';
-  //   p.price = 708;
-  //   p.picturesPath =
-  //     '/products/house and garden/dishes/filters for water/acvafor/';
-  //   this.http
-  //     .post<MainDiscount>(
-  //       `${environment.firebase.databaseURL}/products.json`,
-  //       p,
-  //       {
-  //         headers: {
-  //           'content-type': 'application/json',
-  //         },
-  //       }
-  //     )
-  //     .subscribe(() => console.log('Success'));
-  // }
+  postProduct(products: Product[]) {
+    products.forEach((product) => {
+      this.http
+        .post<MainDiscount>(
+          `${environment.firebase.databaseURL}/products.json`,
+          product,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
+
+  postCategory(categories: HighCategory[]) {
+    categories.forEach((category) => {
+      this.http
+        .post<HighCategory>(
+          `${environment.firebase.databaseURL}/high-categories.json`,
+          category,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
+
+  postMediumCategory(categories: MediumCategory[]) {
+    categories.forEach((category) => {
+      this.http
+        .post<HighCategory>(
+          `${environment.firebase.databaseURL}/medium-categories.json`,
+          category,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
+
+  postLowCategory(categories: LowCategory[]) {
+    categories.forEach((category) => {
+      this.http
+        .post<HighCategory>(
+          `${environment.firebase.databaseURL}/low-categories.json`,
+          category,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
+
+  postLowestCategory(categories: LowestCategory[]) {
+    categories.forEach((category) => {
+      this.http
+        .post<HighCategory>(
+          `${environment.firebase.databaseURL}/lowest-categories.json`,
+          category,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
 }

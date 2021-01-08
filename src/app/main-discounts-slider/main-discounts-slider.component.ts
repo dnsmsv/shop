@@ -23,6 +23,7 @@ export class MainDiscountsSliderComponent implements OnInit {
 
   leftBtnHandler() {
     this.startSliderSimeout();
+
     if (this.discountUrls && this.discountUrls.length) {
       this.selectedIndex =
         this.selectedIndex === 0
@@ -46,6 +47,6 @@ export class MainDiscountsSliderComponent implements OnInit {
     clearTimeout(this.slideTimout);
     this.slideTimout = setTimeout(() => {
       this.rightBtnHandler();
-    }, 5000);
+    }, 8000);
   }
 }

@@ -1,4 +1,6 @@
-<button id="catalogBtn" class="btn" (click)="openCatalogMenu()">
-  <div id="catalog"></div>
+<button id="catalogBtn" class="btn"
+  (click)="opened ? hideCatalogMenu() : showCatalogMenu()">
+  <div class="catalog"
+    [class.catalogOpened]="opened"></div>
   <span>Catalog</span>
 </button>

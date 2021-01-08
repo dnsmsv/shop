@@ -1,1 +1,48 @@
-<p>catalog works!</p>
+<div class="catalog">
+  <div id="highCategory">
+    <ul>
+      <li *ngFor="let category of highCategories" (mouseover)="highCategoryMouseover(category.id)"
+        [class.selected]="category.id === selectedHighCategoryId">
+        {{ category.name }}
+      </li>
+    </ul>
+  </div>
+  <div id="otherCategories" *ngIf="columnMediumCategories?.length">
+    <div id="column1" *ngIf="columnMediumCategories[0]">
+      <ul>
+        <li *ngFor="let category of columnMediumCategories[0]">
+          <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
+          <ul>
+            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+              {{ lowCategory.name }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id="column2" *ngIf="columnMediumCategories[1]">
+      <ul>
+        <li *ngFor="let category of columnMediumCategories[1]">
+          <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
+          <ul>
+            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+              {{ lowCategory.name }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id="column3" *ngIf="columnMediumCategories[2]">
+      <ul>
+        <li *ngFor="let category of columnMediumCategories[2]">
+          <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
+          <ul>
+            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+              {{ lowCategory.name }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

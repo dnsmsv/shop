@@ -48,7 +48,7 @@ import { environment } from 'src/environments/environment';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
   ],
-  providers: [DatabaseService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

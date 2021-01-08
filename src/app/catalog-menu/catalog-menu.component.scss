@@ -5,12 +5,16 @@
   padding: 12px;
 }
 
-#catalog {
-  background: url("../../assets/catalog.png") no-repeat;
+.catalog {
   width: 20px;
   height: 20px;
   padding-right: 5px;
   display: inline-block;
+  background: url("../../assets/catalog.png") no-repeat;
+}
+
+.catalogOpened {
+  background: url("../../assets/close-catalog.png") no-repeat;
 }
 
 span {

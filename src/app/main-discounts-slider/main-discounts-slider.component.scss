@@ -5,6 +5,13 @@
   align-items: flex-end;
   justify-content: space-between;
   background: white;
+  animation: slider 2s ease-in forwards;
+
+  @keyframes slider {
+    to {
+      transform: translateX(200);
+    }
+  }
 
   #leftBtn {
     background: url("../../assets/left-arrow.png") no-repeat center;
