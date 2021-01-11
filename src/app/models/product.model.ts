@@ -1,24 +1,26 @@
 export class Product {
-  lowestCategoryId: string;
+  lowestCategoryRoute: string;
   id: string;
   name: string;
   price: number;
   oldPrice?: number;
   picturesPath: string;
+  picturesCount: number = 0;
 
   constructor(
-    lowestCategoryId?: string,
+    lowestCategoryRoute?: string,
     id?: string,
     name?: string,
     price?: number,
     oldPrice?: number,
-    picturesPath?: string
+    picturesCount?: number
   ) {
-    this.lowestCategoryId = lowestCategoryId;
+    this.lowestCategoryRoute = lowestCategoryRoute;
     this.id = id;
     this.name = name;
     this.price = price;
     this.oldPrice = oldPrice;
-    this.picturesPath = picturesPath;
+    this.picturesPath = `/products/${id}/`;
+    this.picturesCount = picturesCount;
   }
 }

@@ -8,4 +8,5 @@ export const appRoutes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'main', component: MainComponent },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '*', redirectTo: '/main', pathMatch: 'full' },
 ];

@@ -1,0 +1,19 @@
+<div class="products">
+  <div class="categories">
+    <strong>{{ lowCategoryName }}</strong>
+    <ul>
+      <li *ngFor="let category of lowestCategories">
+        {{ category.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="products-list">
+    <table>
+      <tr *ngFor="let product of products">
+        <td *ngFor="let p of product">
+          <app-product [product]="p"></app-product>
+        </td>
+      </tr>
+  </table>
+  </div>
+</div>

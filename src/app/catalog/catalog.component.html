@@ -1,8 +1,8 @@
 <div class="catalog">
   <div id="highCategory">
     <ul>
-      <li *ngFor="let category of highCategories" (mouseover)="highCategoryMouseover(category.id)"
-        [class.selected]="category.id === selectedHighCategoryId">
+      <li *ngFor="let category of highCategories" (mouseover)="highCategoryMouseover(category.route)"
+        [class.selected]="category.route === selectedHighCategoryRoute">
         {{ category.name }}
       </li>
     </ul>
@@ -13,7 +13,8 @@
         <li *ngFor="let category of columnMediumCategories[0]">
           <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
           <ul>
-            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+            <li *ngFor="let lowCategory of getLowCategories(category.route)"
+              (click)="showProduct(category, lowCategory)">
               {{ lowCategory.name }}
             </li>
           </ul>
@@ -25,7 +26,8 @@
         <li *ngFor="let category of columnMediumCategories[1]">
           <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
           <ul>
-            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+            <li *ngFor="let lowCategory of getLowCategories(category.route)"
+              (click)="showProduct(category, lowCategory)">
               {{ lowCategory.name }}
             </li>
           </ul>
@@ -37,7 +39,8 @@
         <li *ngFor="let category of columnMediumCategories[2]">
           <strong class="mediumCategoryItem">{{ category && category.name }}</strong>
           <ul>
-            <li *ngFor="let lowCategory of getLowCategories(category.id)">
+            <li *ngFor="let lowCategory of getLowCategories(category.route)"
+              (click)="showProduct(category, lowCategory)">
               {{ lowCategory.name }}
             </li>
           </ul>

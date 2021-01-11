@@ -14,7 +14,6 @@ export class CatalogMenuComponent implements OnInit {
   ngOnInit(): void {
     this.catalogService.catalogVisibility.subscribe((visibility) => {
       this.opened = visibility;
-      console.log(visibility);
     });
   }
 

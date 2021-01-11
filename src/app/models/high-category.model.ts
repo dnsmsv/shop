@@ -1,9 +1,9 @@
 export class HighCategory {
-  id: string;
+  route: string;
   name: string;
 
-  constructor(id?: string, name?: string) {
-    this.id = id;
+  constructor(route?: string, name?: string) {
+    this.route = route;
     this.name = name;
   }
 }

@@ -1,11 +1,11 @@
 export class MediumCategory {
-  highCategoryId: string;
-  id: string;
+  highCategoryRoute: string;
+  route: string;
   name: string;
 
-  constructor(highCategoryId?: string, id?: string, name?: string) {
-    this.highCategoryId = highCategoryId;
-    this.id = id;
+  constructor(highCategoryRoute?: string, route?: string, name?: string) {
+    this.highCategoryRoute = highCategoryRoute;
+    this.route = route;
     this.name = name;
   }
 }

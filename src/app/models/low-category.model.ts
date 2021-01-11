@@ -1,11 +1,11 @@
 export class LowCategory {
-  mediumCategoryId: string;
-  id: string;
+  mediumCategoryRoute: string;
+  route: string;
   name: string;
 
-  constructor(mediumCategoryId?: string, id?: string, name?: string) {
-    this.mediumCategoryId = mediumCategoryId;
-    this.id = id;
+  constructor(mediumCategoryRoute?: string, route?: string, name?: string) {
+    this.mediumCategoryRoute = mediumCategoryRoute;
+    this.route = route;
     this.name = name;
   }
 }

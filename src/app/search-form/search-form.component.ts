@@ -31,46 +31,63 @@ export class SearchFormComponent implements OnInit {
   search() {
     this.firebaseService.clear();
     this.databaseService.postCategory([
-      new HighCategory('1', 'Сlothes, shoes and accessories'),
-      new HighCategory('2', 'Electronics'),
-      new HighCategory('3', 'Baby products'),
+      new HighCategory(
+        'clothes-shoes-accessories',
+        'Сlothes, shoes and accessories'
+      ),
+      new HighCategory('electronics', 'Electronics'),
+      new HighCategory('baby-products', 'Baby products'),
     ]);
     this.databaseService.postMediumCategory([
-      new MediumCategory('1', '1', 'For women'),
-      new MediumCategory('1', '2', 'For men'),
-      new MediumCategory('1', '3', 'For children'),
-      new MediumCategory('1', '4', 'Sport'),
-      new MediumCategory('1', '5', 'Travels'),
-      new MediumCategory('1', '6', 'Coveralls'),
+      new MediumCategory('clothes-shoes-accessories', 'for-women', 'For women'),
+      new MediumCategory('clothes-shoes-accessories', 'for-men', 'For men'),
+      new MediumCategory(
+        'clothes-shoes-accessories',
+        'for-children',
+        'For children'
+      ),
+      new MediumCategory('clothes-shoes-accessories', 'sport', 'Sport'),
+      new MediumCategory('clothes-shoes-accessories', 'travels', 'Travels'),
+      new MediumCategory('clothes-shoes-accessories', 'coveralls', 'Coveralls'),
     ]);
     this.databaseService.postLowCategory([
-      new LowCategory('1', '1', 'Clothes'),
-      new LowCategory('1', '2', 'Shoes'),
-      new LowCategory('1', '3', 'Accessories'),
-      new LowCategory('1', '4', 'Home clothes'),
-      new LowCategory('2', '5', 'Clothes'),
-      new LowCategory('2', '6', 'Shoes'),
-      new LowCategory('2', '7', 'Socks'),
-      new LowCategory('2', '8', 'Home clothes'),
-      new LowCategory('3', '9', 'Clothes'),
-      new LowCategory('3', '10', 'Shoes'),
-      new LowCategory('3', '11', 'School uniform'),
-      new LowCategory('4', '12', 'For women'),
-      new LowCategory('4', '13', 'For men'),
-      new LowCategory('4', '14', 'For children'),
-      new LowCategory('5', '15', 'Baggage'),
-      new LowCategory('5', '16', 'Accessories for travels'),
-      new LowCategory('6', '17', 'Work overalls'),
-      new LowCategory('6', '18', 'Work shoes'),
-      new LowCategory('6', '19', 'Medical clothes'),
-      new LowCategory('6', '20', 'Medical shoes'),
+      new LowCategory('for-women', 'clothes', 'Clothes'),
+      new LowCategory('for-women', 'shoes', 'Shoes'),
+      new LowCategory('for-women', 'accessories', 'Accessories'),
+      new LowCategory('for-women', 'home-clothes', 'Home clothes'),
+      new LowCategory('for-men', 'clothes', 'Clothes'),
+      new LowCategory('for-men', 'shoes', 'Shoes'),
+      new LowCategory('for-men', 'socks', 'Socks'),
+      new LowCategory('for-men', 'home-clothes', 'Home clothes'),
+      new LowCategory('for-children', 'clothes', 'Clothes'),
+      new LowCategory('for-children', 'shoes', 'Shoes'),
+      new LowCategory('for-children', 'school-uniform', 'School uniform'),
+      new LowCategory('sport', 'for-women', 'For women'),
+      new LowCategory('sport', 'for-men', 'For men'),
+      new LowCategory('sport', 'for-children', 'For children'),
+      new LowCategory('travels', 'baggage', 'Baggage'),
+      new LowCategory(
+        'travels',
+        'accessories-for-travels',
+        'Accessories for travels'
+      ),
+      new LowCategory('coveralls', 'work-overalls', 'Work overalls'),
+      new LowCategory('coveralls', 'work-shoes', 'Work shoes'),
+      new LowCategory('coveralls', 'medical-clothes', 'Medical clothes'),
+      new LowCategory('coveralls', 'medical-shoes', 'Medical shoes'),
     ]);
     this.databaseService.postLowestCategory([
-      new LowestCategory('1', '1', 'Outewear'),
-      new LowestCategory('1', '2', 'Sweaters'),
+      new LowestCategory('clothes', 'outewear', 'Outewear'),
+      new LowestCategory('clothes', 'sweaters', 'Sweaters'),
     ]);
     this.databaseService.postProduct([
-      new Product('1', '1', 'Down coat', 8075, 14000, '/products/1/'),
+      new Product('outewear', '1', 'Down coat', 8075, 14000, 2),
+      new Product('outewear', '2', 'Down jacket', 8075, 14000, 2),
+      new Product('outewear', '3', 'Down jacket', 5320, 10900, 1),
+      new Product('outewear', '4', 'Down coat Zolla', 4999, null, 3),
+      new Product('outewear', '5', 'Down jacket', 3696, 8990, 1),
+      new Product('outewear', '6', 'Jacket', 800, 3499, 4),
+      new Product('outewear', '7', 'Warm coat', 2999, 5999, 4),
     ]);
   }
 }

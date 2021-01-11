@@ -1,11 +1,11 @@
 export class LowestCategory {
-  lowCategoryId: string;
-  id: string;
+  lowCategoryRoute: string;
+  route: string;
   name: string;
 
-  constructor(lowCategoryId?: string, id?: string, name?: string) {
-    this.lowCategoryId = lowCategoryId;
-    this.id = id;
+  constructor(lowCategoryRoute?: string, route?: string, name?: string) {
+    this.lowCategoryRoute = lowCategoryRoute;
+    this.route = route;
     this.name = name;
   }
 }

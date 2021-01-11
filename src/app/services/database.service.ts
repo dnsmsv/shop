@@ -95,51 +95,57 @@ export class DatabaseService {
     });
   }
 
-  postMediumCategory(categories: MediumCategory[]) {
-    categories.forEach((category) => {
-      this.http
-        .post<HighCategory>(
-          `${environment.firebase.databaseURL}/medium-categories.json`,
-          category,
-          {
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
-        )
-        .subscribe(() => console.log('Success'));
-    });
+  async postMediumCategory(categories: MediumCategory[]) {
+    for (let i = 0; i < categories.length; i++) {
+      await new Promise((resolve) =>
+        this.http
+          .post<HighCategory>(
+            `${environment.firebase.databaseURL}/medium-categories.json`,
+            categories[i],
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
+            }
+          )
+          .subscribe(() => resolve({}))
+      );
+    }
   }
 
-  postLowCategory(categories: LowCategory[]) {
-    categories.forEach((category) => {
-      this.http
-        .post<HighCategory>(
-          `${environment.firebase.databaseURL}/low-categories.json`,
-          category,
-          {
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
-        )
-        .subscribe(() => console.log('Success'));
-    });
+  async postLowCategory(categories: LowCategory[]) {
+    for (let i = 0; i < categories.length; i++) {
+      await new Promise((resolve) =>
+        this.http
+          .post<HighCategory>(
+            `${environment.firebase.databaseURL}/low-categories.json`,
+            categories[i],
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
+            }
+          )
+          .subscribe(() => resolve({}))
+      );
+    }
   }
 
-  postLowestCategory(categories: LowestCategory[]) {
-    categories.forEach((category) => {
-      this.http
-        .post<HighCategory>(
-          `${environment.firebase.databaseURL}/lowest-categories.json`,
-          category,
-          {
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
-        )
-        .subscribe(() => console.log('Success'));
-    });
+  async postLowestCategory(categories: LowestCategory[]) {
+    for (let i = 0; i < categories.length; i++) {
+      await new Promise((resolve) =>
+        this.http
+          .post<HighCategory>(
+            `${environment.firebase.databaseURL}/lowest-categories.json`,
+            categories[i],
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
+            }
+          )
+          .subscribe(() => resolve({}))
+      );
+    }
   }
 }

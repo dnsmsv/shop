@@ -35,18 +35,18 @@ export class CatalogService {
     );
   }
 
-  getMediumCategories(): Promise<MediumCategory[]> {
+  getMediumCategories(highCategoryRoute: string): Promise<MediumCategory[]> {
     return new Promise((resolve) =>
       this.firebaseService
-        .getMediumCategories()
+        .getMediumCategories(highCategoryRoute)
         .subscribe((categories) => resolve(categories))
     );
   }
 
-  getLowCategories(): Promise<LowCategory[]> {
+  getLowCategories(mediumCategoryRoute: string): Promise<LowCategory[]> {
     return new Promise((resolve) =>
       this.firebaseService
-        .getLowCategories()
+        .getLowCategories(mediumCategoryRoute)
         .subscribe((categories) => resolve(categories))
     );
   }
