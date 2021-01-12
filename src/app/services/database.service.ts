@@ -79,20 +79,22 @@ export class DatabaseService {
     });
   }
 
-  postCategory(categories: HighCategory[]) {
-    categories.forEach((category) => {
-      this.http
-        .post<HighCategory>(
-          `${environment.firebase.databaseURL}/high-categories.json`,
-          category,
-          {
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
-        )
-        .subscribe(() => console.log('Success'));
-    });
+  async postCategory(categories: HighCategory[]) {
+    for (let i = 0; i < categories.length; i++) {
+      await new Promise((resolve) =>
+        this.http
+          .post<HighCategory>(
+            `${environment.firebase.databaseURL}/high-categories.json`,
+            categories[i],
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
+            }
+          )
+          .subscribe(() => resolve({}))
+      );
+    }
   }
 
   async postMediumCategory(categories: MediumCategory[]) {

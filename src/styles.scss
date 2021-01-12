@@ -1,5 +1,6 @@
 $base-color: #6b70de;
 $selected-color: #6065c9;
+$light-base-color: #e0e2fd;
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -38,6 +39,12 @@ li {
 
 .btn:hover {
   background-color: $selected-color;
+}
+
+.small-btn {
+  @extend .btn;
+  height: 2.3em;
+  font-size: 0.9em;
 }
 
 .tooltip {

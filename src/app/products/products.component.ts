@@ -64,4 +64,6 @@ export class ProductsComponent implements OnInit {
       this.products.push(row);
     }
   }
+
+  lowestCategoryClickedHandler(category: LowestCategory): void {}
 }

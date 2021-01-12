@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 .product {
   width: 100%;
   height: 100%;
@@ -10,14 +12,61 @@
     margin: 50px auto 15px auto;
   }
 
+  .indicators {
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .indicator {
+      width: 6px;
+      height: 6px;
+      margin: 2px;
+      border-radius: 2px;
+      background-color: $light-base-color;
+    }
+
+    .indicator.selected {
+      background-color: $base-color;
+    }
+  }
+
+  .indicators.hidden {
+    visibility: hidden;
+  }
+
   .price {
-    font-size: 1.1em;
-    font-weight: bold;
     margin-left: 20px;
+
+    .new-price {
+      display: inline-block;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    .promotion {
+      color: #ff4141;
+    }
+
+    .old-price {
+      display: inline-block;
+      font-size: 0.85em;
+      color: #444444;
+      margin-left: 5px;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: #ff4141;
+    }
   }
 
   .name {
     padding: 0px;
     margin: 0 0 0 20px;
+  }
+
+  .add-btn {
+    margin-left: 20px;
+    margin-top: 8px;
   }
 }

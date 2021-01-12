@@ -1,8 +1,9 @@
 <div class="products">
   <div class="categories">
-    <strong>{{ lowCategoryName }}</strong>
+    <strong id="lowCategoryName">{{ lowCategoryName }}</strong>
     <ul>
-      <li *ngFor="let category of lowestCategories">
+      <li *ngFor="let category of lowestCategories"
+        (click)="lowestCategoryClickedHandler(category)">
         {{ category.name }}
       </li>
     </ul>

@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 .products {
   display: flex;
   flex-direction: row;
@@ -5,11 +7,22 @@
   .categories {
     flex: 0 0 230px;
 
+    #lowCategoryName {
+      background-color: $light-base-color;
+      border-radius: 6px;
+      padding: 4px 6px;
+    }
+
     ul {
-      padding-left: 8px;
+      padding-left: 10px;
+      padding-top: 4px;
 
       li {
         margin: 8px 0px;
+      }
+
+      li:hover {
+        color: $selected-color;
       }
     }
   }
