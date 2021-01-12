@@ -8,17 +8,34 @@
     flex: 0 0 230px;
 
     #lowCategoryName {
-      background-color: $light-base-color;
       border-radius: 6px;
       padding: 4px 6px;
     }
 
+    #lowCategoryName:hover {
+      color: $selected-color;
+    }
+
+    #lowCategoryName.selected-low-category {
+      background-color: $light-base-color;
+    }
+
     ul {
-      padding-left: 10px;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
       padding-top: 4px;
+      padding-left: 16px;
 
       li {
-        margin: 8px 0px;
+        float: left;
+        clear: left;
+        border-radius: 6px;
+        padding: 3px 6px;
+      }
+
+      li.selected-lowest-category {
+        background-color: $light-base-color;
       }
 
       li:hover {

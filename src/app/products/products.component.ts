@@ -17,30 +17,33 @@ export class ProductsComponent implements OnInit {
 
   readonly colCount = 3;
   lowCategoryName: string;
+  lowCategoryRoute: string;
   lowestCategories: LowestCategory[];
+  allProducts: Product[] = [];
   products: Product[][] = [];
+  selectedCategoryRoute: string;
 
   async ngOnInit() {
     this.lowCategoryName = this.route.snapshot.data.lowName;
+    this.lowCategoryRoute = this.route.snapshot.data.lowRoute;
+    this.selectedCategoryRoute = this.route.snapshot.data.lowRoute;
     const lowRoute: string = this.route.snapshot.data.lowRoute;
     this.lowestCategories = await this.productService.getLowestCategories(
       lowRoute
     );
 
     if (this.lowestCategories?.length) {
-      let allProducts: Product[] = [];
-
       for (let i = 0; i < this.lowestCategories.length; i++) {
         const categoryProducts: Product[] = await this.productService.getProducts(
           this.lowestCategories[i].route
         );
 
         if (categoryProducts?.length) {
-          allProducts = allProducts.concat(categoryProducts);
+          this.allProducts = this.allProducts.concat(categoryProducts);
         }
       }
 
-      this.initColumnProducts(allProducts);
+      this.initColumnProducts(this.allProducts);
     }
   }
 
@@ -65,5 +68,15 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  lowestCategoryClickedHandler(category: LowestCategory): void {}
+  lowCategoryClickHandler(): void {
+    this.selectedCategoryRoute = this.lowCategoryRoute;
+    this.initColumnProducts(this.allProducts);
+  }
+
+  lowestCategoryClickedHandler(category: LowestCategory): void {
+    this.selectedCategoryRoute = category.route;
+    this.initColumnProducts(
+      this.allProducts.filter((p) => p.lowestCategoryRoute === category.route)
+    );
+  }
 }

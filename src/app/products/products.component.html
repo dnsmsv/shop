@@ -1,9 +1,15 @@
 <div class="products">
   <div class="categories">
-    <strong id="lowCategoryName">{{ lowCategoryName }}</strong>
+    <strong id="lowCategoryName"
+      class="noselection"
+      [class.selected-low-category]="lowCategoryRoute === selectedCategoryRoute"
+      (click)="lowCategoryClickHandler()">
+        {{ lowCategoryName }}
+    </strong>
     <ul>
       <li *ngFor="let category of lowestCategories"
-        (click)="lowestCategoryClickedHandler(category)">
+        (click)="lowestCategoryClickedHandler(category)"
+        [class.selected-lowest-category]="category.route === selectedCategoryRoute">
         {{ category.name }}
       </li>
     </ul>

@@ -88,6 +88,10 @@ export class SearchFormComponent implements OnInit {
       new Product('outewear', '5', 'Down jacket', 3696, 8990, 1),
       new Product('outewear', '6', 'Jacket', 800, 3499, 4),
       new Product('outewear', '7', 'Warm coat', 2999, 5999, 4),
+      new Product('sweaters', '8', 'Sweater', 665, 1999, 3),
+      new Product('sweaters', '9', 'Sweater Love Republic', 2099, 2999, 5),
+      new Product('sweaters', '10', 'Jumper', 485, 1499, 3),
+      new Product('sweaters', '11', 'Jumper', 1117, 1799, 3),
     ]);
   }
 }
