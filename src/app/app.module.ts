@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { SignupFormComponent } from './signup-form/signup-form.component';
-import { LoginFormComponent } from './login-form/login-form.component';
 import { MainComponent } from './main/main.component';
 import { AccountComponent } from './account/account.component';
 import { OrderlistComponent } from './orderlist/orderlist.component';
@@ -16,7 +14,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DatabaseService } from './services/database.service';
 import { MainDiscountsSliderComponent } from './main-discounts-slider/main-discounts-slider.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -24,13 +21,14 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './product/product.component';
+import { LoginSignupFormComponent } from './login-signup-form/login-signup-form.component';
+import { DiscountsComponent } from './discounts/discounts.component';
+import { DiscountComponent } from './discount/discount.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
-    SignupFormComponent,
-    LoginFormComponent,
     MainComponent,
     AccountComponent,
     OrderlistComponent,
@@ -40,6 +38,9 @@ import { ProductComponent } from './product/product.component';
     MainDiscountsSliderComponent,
     ProductsComponent,
     ProductComponent,
+    LoginSignupFormComponent,
+    DiscountsComponent,
+    DiscountComponent,
   ],
   imports: [
     BrowserModule,

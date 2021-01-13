@@ -1,0 +1,35 @@
+.discount {
+  margin: 12px 0px;
+
+  .picture {
+    width: 180px;
+    height: 180px;
+  }
+
+  .price {
+    .new-price {
+      display: inline-block;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    .promotion {
+      color: #ff4141;
+    }
+
+    .old-price {
+      display: inline-block;
+      font-size: 0.85em;
+      color: #444444;
+      margin-left: 5px;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: #ff4141;
+    }
+  }
+
+  .name {
+    padding: 0px;
+    margin: 0px;
+  }
+}

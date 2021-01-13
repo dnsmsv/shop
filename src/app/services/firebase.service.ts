@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Discount } from '../models/discount.model';
 import { HighCategory } from '../models/high-category.model';
 import { LowCategory } from '../models/low-category.model';
 import { LowestCategory } from '../models/lowest-category.model';
@@ -93,11 +95,40 @@ export class FirebaseService {
       .valueChanges();
   }
 
+  async getDiscountProducts(): Promise<Product[]> {
+    const discounts: Discount[] = await this.database
+      .list<Discount>('discounts')
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+    const promises: Promise<Product[]>[] = [];
+
+    if (discounts) {
+      for (let i = 0; i < discounts.length; i++) {
+        promises.push(
+          this.database
+            .list<Product>('products', (query) =>
+              query.orderByChild('id').equalTo(discounts[i].productId)
+            )
+            .valueChanges()
+            .pipe(take(1))
+            .toPromise()
+        );
+      }
+    }
+
+    const products: Product[][] = await Promise.all(promises);
+    let res: Product[] = [];
+    products.forEach((p) => (res = res.concat(p)));
+    return Promise.resolve(res);
+  }
+
   clear() {
     this.database.object('high-categories').remove();
     this.database.object('medium-categories').remove();
     this.database.object('low-categories').remove();
     this.database.object('lowest-categories').remove();
     this.database.object('products').remove();
+    this.database.object('discounts').remove();
   }
 }

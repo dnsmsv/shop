@@ -53,6 +53,20 @@ app-search-form {
   background: url("../../assets/selected-order-list.png");
 }
 
+#favoriteList {
+  flex: 0 0 25px;
+  display: inline-block;
+  background: url("../../assets/favorite.png");
+  block-size: cover;
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#favoriteList:hover {
+  background: url("../../assets/selected-favorite.png");
+}
+
 app-catalog {
   position: absolute;
   display: none;

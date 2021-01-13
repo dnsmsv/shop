@@ -27,6 +27,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   selectedUrl: string;
   urls: string[];
   mouseOnPicture: boolean = false;
+  isFavorite: boolean = false;
 
   @Input() product: Product;
 
@@ -68,6 +69,10 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   mouseoutHandler() {
     this.mouseOnPicture = false;
+  }
+
+  changeFavoriteState(): void {
+    this.isFavorite = !this.isFavorite;
   }
 
   addToCart(): void {}

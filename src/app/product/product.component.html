@@ -5,6 +5,10 @@
     [style.background]="selectedUrl ? 'url(' + selectedUrl + ') no-repeat' : ''"
     (mouseover)="mouseoverHandler()"
     (mouseout)="mouseoutHandler()">
+    <div class="favoriteBtn"
+      [class.isFavorite]="isFavorite"
+      (click)="changeFavoriteState()">
+    </div>
   </div>
   <div class="indicators"
     [class.hidden]="urls?.length <= 1">

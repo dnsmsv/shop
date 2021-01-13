@@ -9,6 +9,7 @@ import { HighCategory } from '../models/high-category.model';
 import { MediumCategory } from '../models/medium-category.model';
 import { LowCategory } from '../models/low-category.model';
 import { LowestCategory } from '../models/lowest-category.model';
+import { Discount } from '../models/discount.model';
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +70,22 @@ export class DatabaseService {
         .post<MainDiscount>(
           `${environment.firebase.databaseURL}/products.json`,
           product,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
+  }
+
+  postDiscount(discounts: Discount[]) {
+    discounts.forEach((discount) => {
+      this.http
+        .post<Discount>(
+          `${environment.firebase.databaseURL}/discounts.json`,
+          discount,
           {
             headers: {
               'content-type': 'application/json',

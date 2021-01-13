@@ -10,6 +10,24 @@
     height: 400px;
     object-fit: cover;
     margin: 50px auto 15px auto;
+    position: relative;
+
+    .favoriteBtn {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 26px;
+      height: 26px;
+      background: url("../../assets/favorite.png") no-repeat;
+    }
+
+    .favoriteBtn:hover {
+      background: url("../../assets/favorite-selected.png") no-repeat;
+    }
+
+    .favoriteBtn.isFavorite {
+      background: url("../../assets/favorite-clicked.png") no-repeat;
+    }
   }
 
   .indicators {
