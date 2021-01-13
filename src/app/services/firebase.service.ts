@@ -40,7 +40,7 @@ export class FirebaseService {
     });
   }
 
-  async getProductPictureUrls(product: Product) {
+  async getProductPictureUrls(product: Product): Promise<string[]> {
     const promises: Promise<string>[] = [];
 
     try {
@@ -55,6 +55,10 @@ export class FirebaseService {
     } catch {}
 
     return Promise.all(promises);
+  }
+
+  async getDiscountPictureUrl(picturePath: string): Promise<string> {
+    return await this.storage.ref(picturePath).getDownloadURL().toPromise();
   }
 
   getHighCategories(): Observable<HighCategory[]> {
@@ -95,32 +99,22 @@ export class FirebaseService {
       .valueChanges();
   }
 
-  async getDiscountProducts(): Promise<Product[]> {
-    const discounts: Discount[] = await this.database
+  async getProduct(productId: string): Promise<Product[]> {
+    return this.database
+      .list<Product>('products', (query) => {
+        return query.orderByChild('id').equalTo(productId).limitToFirst(1);
+      })
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
+
+  async getDiscounts(): Promise<Discount[]> {
+    return await this.database
       .list<Discount>('discounts')
       .valueChanges()
       .pipe(take(1))
       .toPromise();
-    const promises: Promise<Product[]>[] = [];
-
-    if (discounts) {
-      for (let i = 0; i < discounts.length; i++) {
-        promises.push(
-          this.database
-            .list<Product>('products', (query) =>
-              query.orderByChild('id').equalTo(discounts[i].productId)
-            )
-            .valueChanges()
-            .pipe(take(1))
-            .toPromise()
-        );
-      }
-    }
-
-    const products: Product[][] = await Promise.all(promises);
-    let res: Product[] = [];
-    products.forEach((p) => (res = res.concat(p)));
-    return Promise.resolve(res);
   }
 
   clear() {

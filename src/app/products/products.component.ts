@@ -22,8 +22,10 @@ export class ProductsComponent implements OnInit {
   allProducts: Product[] = [];
   products: Product[][] = [];
   selectedCategoryRoute: string;
+  loading: boolean = false;
 
   async ngOnInit() {
+    this.loading = true;
     this.lowCategoryName = this.route.snapshot.data.lowName;
     this.lowCategoryRoute = this.route.snapshot.data.lowRoute;
     this.selectedCategoryRoute = this.route.snapshot.data.lowRoute;
@@ -45,6 +47,8 @@ export class ProductsComponent implements OnInit {
 
       this.initColumnProducts(this.allProducts);
     }
+
+    this.loading = false;
   }
 
   initColumnProducts(categoryProducts: Product[]): void {

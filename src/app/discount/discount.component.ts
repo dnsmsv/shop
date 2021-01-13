@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Discount } from '../models/discount.model';
 import { Product } from '../models/product.model';
 import { FirebaseService } from '../services/firebase.service';
 
@@ -10,14 +11,19 @@ import { FirebaseService } from '../services/firebase.service';
 export class DiscountComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) {}
 
-  @Input() product: Product;
+  @Input() discount: Discount;
+  product: Product;
   pictureUrl: string;
 
   async ngOnInit() {
-    const urls: string[] = await this.firebaseService.getProductPictureUrls(
-      this.product
+    const productArray: Product[] = await this.firebaseService.getProduct(
+      this.discount.productId
     );
 
-    if (urls?.length) this.pictureUrl = urls[0];
+    if (productArray?.length) this.product = productArray[0];
+
+    this.pictureUrl = await this.firebaseService.getDiscountPictureUrl(
+      this.discount.picturePath
+    );
   }
 }

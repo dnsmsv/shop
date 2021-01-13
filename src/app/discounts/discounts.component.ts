@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Discount } from '../models/discount.model';
-import { Product } from '../models/product.model';
 import { FirebaseService } from '../services/firebase.service';
 
 @Component({
@@ -11,9 +10,9 @@ import { FirebaseService } from '../services/firebase.service';
 export class DiscountsComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) {}
 
-  products: Product[];
+  discounts: Discount[];
 
   async ngOnInit() {
-    this.products = await this.firebaseService.getDiscountProducts();
+    this.discounts = await this.firebaseService.getDiscounts();
   }
 }

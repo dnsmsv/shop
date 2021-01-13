@@ -6,6 +6,6 @@ export class Discount {
   productId: string;
 
   get picturePath(): string {
-    return `discounts/${this.productId}`;
+    return `discounts/${this.productId}.png`;
   }
 }
