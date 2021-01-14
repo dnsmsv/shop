@@ -20,6 +20,7 @@
     background: white;
     color: $base-color;
     font-weight: bold;
+    cursor: pointer;
   }
 }
 
@@ -43,6 +44,7 @@
       li:hover {
         color: $base-color;
         font-weight: bold;
+        cursor: pointer;
       }
     }
   }

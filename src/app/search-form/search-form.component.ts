@@ -184,14 +184,14 @@ export class SearchFormComponent implements OnInit {
       new Discount('32'),
       new Discount('6'),
       new Discount('10'),
-      new Discount('1'),
       new Discount('11'),
+      new Discount('59'),
       new Discount('20'),
       new Discount('25'),
       new Discount('40'),
       new Discount('3'),
       new Discount('35'),
-      new Discount('59'),
+      new Discount('1'),
     ]);
   }
 }

@@ -7,16 +7,17 @@
   .categories {
     flex: 0 0 230px;
 
-    #lowCategoryName {
+    #low-category-name {
       border-radius: 6px;
       padding: 4px 6px;
     }
 
-    #lowCategoryName:hover {
+    #low-category-name:hover {
       color: $selected-color;
+      cursor: pointer;
     }
 
-    #lowCategoryName.selected-low-category {
+    #low-category-name.selected-low-category {
       background-color: $light-base-color;
     }
 
@@ -40,6 +41,7 @@
 
       li:hover {
         color: $selected-color;
+        cursor: pointer;
       }
     }
   }

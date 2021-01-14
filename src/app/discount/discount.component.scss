@@ -1,15 +1,32 @@
+@import "../../styles.scss";
+
 .discount {
   margin: 12px 0px;
 
   .picture {
     width: 180px;
     height: 180px;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .percent {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 58px;
+    height: 24px;
+    border-radius: 3px;
+    background-color: rgb(255, 61, 94);
+    color: white;
+    font-weight: bold;
+    text-align: center;
   }
 
   .price {
     .new-price {
       display: inline-block;
-      font-size: 1.1em;
+      font-size: 0.9em;
       font-weight: bold;
     }
 
@@ -19,7 +36,7 @@
 
     .old-price {
       display: inline-block;
-      font-size: 0.85em;
+      font-size: 0.75em;
       color: #444444;
       margin-left: 5px;
       text-decoration: line-through;
@@ -31,5 +48,14 @@
   .name {
     padding: 0px;
     margin: 0px;
+    font-size: 0.9em;
   }
+
+  .name.selected {
+    color: $selected-color;
+  }
+}
+
+.discount.selected {
+  cursor: pointer;
 }

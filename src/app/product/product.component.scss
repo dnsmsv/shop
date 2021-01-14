@@ -12,7 +12,7 @@
     margin: 50px auto 15px auto;
     position: relative;
 
-    .favoriteBtn {
+    .favorite-btn {
       position: absolute;
       top: 7px;
       right: 7px;
@@ -21,11 +21,12 @@
       background: url("../../assets/favorite.png") no-repeat;
     }
 
-    .favoriteBtn:hover {
+    .favorite-btn:hover {
       background: url("../../assets/favorite-selected.png") no-repeat;
+      cursor: pointer;
     }
 
-    .favoriteBtn.isFavorite {
+    .favorite-btn.isFavorite {
       background: url("../../assets/favorite-clicked.png") no-repeat;
     }
   }
@@ -81,6 +82,10 @@
   .name {
     padding: 0px;
     margin: 0 0 0 20px;
+  }
+
+  .name.selected {
+    color: $selected-color;
   }
 
   .add-btn {

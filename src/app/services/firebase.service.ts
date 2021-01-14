@@ -117,6 +117,67 @@ export class FirebaseService {
       .toPromise();
   }
 
+  async getFullRoute(lowestCategoryRoute: string): Promise<string> {
+    try {
+      const lowestCategories: LowestCategory[] = await this.database
+        .list<LowestCategory>('lowest-categories', (query) => {
+          return query
+            .orderByChild('route')
+            .equalTo(lowestCategoryRoute)
+            .limitToFirst(1);
+        })
+        .valueChanges()
+        .pipe(take(1))
+        .toPromise();
+
+      if (lowestCategories?.length) {
+        const lowCategories: LowCategory[] = await this.database
+          .list<LowCategory>('low-categories', (query) => {
+            return query
+              .orderByChild('route')
+              .equalTo(lowestCategories[0].lowCategoryRoute)
+              .limitToFirst(1);
+          })
+          .valueChanges()
+          .pipe(take(1))
+          .toPromise();
+
+        if (lowCategories?.length) {
+          const mediumCategories: MediumCategory[] = await this.database
+            .list<MediumCategory>('medium-categories', (query) => {
+              return query
+                .orderByChild('route')
+                .equalTo(lowCategories[0].mediumCategoryRoute)
+                .limitToFirst(1);
+            })
+            .valueChanges()
+            .pipe(take(1))
+            .toPromise();
+
+          if (mediumCategories?.length) {
+            const highCategories: HighCategory[] = await this.database
+              .list<HighCategory>('high-categories', (query) => {
+                return query
+                  .orderByChild('route')
+                  .equalTo(mediumCategories[0].highCategoryRoute)
+                  .limitToFirst(1);
+              })
+              .valueChanges()
+              .pipe(take(1))
+              .toPromise();
+            return Promise.resolve(
+              `${highCategories[0].route}/${mediumCategories[0].route}/${lowCategories[0].route}`
+            );
+          }
+        }
+      }
+    } catch {
+      console.log(`There is no route for \'${lowestCategoryRoute}\'`);
+    }
+
+    return Promise.reject();
+  }
+
   clear() {
     this.database.object('high-categories').remove();
     this.database.object('medium-categories').remove();

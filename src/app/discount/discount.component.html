@@ -1,14 +1,28 @@
-<div class="discount">
+<div 
+  class="discount"
+  (click)="clickHandler()"
+  (mouseover)="mouseoverHandler()"
+  (mouseleave)="mouseleaveHandler()"
+  [class.selected]="selected">
   <div 
     class="picture" 
     [style.background]="pictureUrl ? 'url(' + pictureUrl + ') no-repeat' : ''">
+    <div 
+      *ngIf="product?.oldPrice"
+      class="percent">− {{ product?.oldPrice ? (100 * (product.oldPrice - product.price) / product.oldPrice | number: '1.0-0') : '' }}%</div>
   </div>
   <div class="price">
     <strong 
       class="new-price"
       [class.promotion]="product?.oldPrice">{{ product ? product.price + ' ₽' : '' }}
     </strong>
-    <div class="old-price">{{ product?.oldPrice ? product.oldPrice + ' ₽' : '' }}</div>
+    <div class="old-price">
+      {{ product?.oldPrice ? product.oldPrice + ' ₽' : '' }}
+    </div>
   </div>
-  <p class="name">{{ product?.name }}</p>
+  <p 
+    class="name"
+    [class.selected]="selected">
+    {{ product?.name }}
+  </p>
 </div>

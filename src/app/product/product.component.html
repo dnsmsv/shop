@@ -1,11 +1,14 @@
-<div class="product">
+<div 
+  class="product"
+  (mouseenter)="mouseenterHandler()"
+  (mouseleave)="mouseleaveHandler()">
   <div 
     #picture
     class="picture" 
     [style.background]="selectedUrl ? 'url(' + selectedUrl + ') no-repeat' : ''"
     (mouseover)="mouseoverHandler()"
     (mouseout)="mouseoutHandler()">
-    <div class="favoriteBtn"
+    <div class="favorite-btn"
       [class.isFavorite]="isFavorite"
       (click)="changeFavoriteState()">
     </div>
@@ -24,7 +27,11 @@
     </strong>
     <div class="old-price">{{ product?.oldPrice ? product.oldPrice + ' ₽' : '' }}</div>
   </div>
-  <p class="name">{{ product?.name }}</p>
+  <p 
+    class="name"
+    [class.selected]="selected">
+    {{ product?.name }}
+  </p>
   <button class="small-btn add-btn"
     *ngIf="product"
     (click)="addToCart()">
