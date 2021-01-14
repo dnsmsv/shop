@@ -26,28 +26,29 @@ export class CatalogComponent implements OnInit {
   columnMediumCategories: MediumCategory[][] = [];
 
   async loadCategories() {
-    const high: HighCategory[] = await this.catalogService.getHighCategories();
-    this.highCategories = high;
+    await this.catalogService.loadCatalog();
+    this.highCategories = this.catalogService.highCategories.value;
+    this.mediumCategories = this.catalogService.mediumCategories.value;
+    this.lowCategories = this.catalogService.lowCategories.value;
+    const lowestCategories = this.catalogService.lowestCategories.value;
 
-    if (high?.length) {
-      this.selectedHighCategoryRoute = high[0].route;
-      high.forEach(async (h) => {
-        const medium: MediumCategory[] = await this.catalogService.getMediumCategories(
-          h.route
+    if (this.highCategories?.length) {
+      this.selectedHighCategoryRoute = this.highCategories[0].route;
+      this.initColumnMediumCategories(this.selectedHighCategoryRoute);
+
+      this.highCategories.forEach((h) => {
+        const medium: MediumCategory[] = this.mediumCategories.filter(
+          (m) => m.highCategoryRoute === h.route
         );
 
         if (medium?.length) {
-          this.mediumCategories = this.mediumCategories.concat(medium);
-
-          if (this.selectedHighCategoryRoute === h.route)
-            this.initColumnMediumCategories(this.selectedHighCategoryRoute);
-
-          medium.forEach(async (m) => {
-            const low = await this.catalogService.getLowCategories(m.route);
+          medium.forEach((m) => {
+            const low = this.lowCategories.filter(
+              (l) => l.mediumCategoryRoute === m.route
+            );
 
             if (low?.length) {
-              this.lowCategories = this.lowCategories.concat(low);
-              low.forEach((l) =>
+              low.forEach((l) => {
                 this.router.config.push({
                   path: `${h.route}/${m.route}/${l.route}`,
                   component: ProductsComponent,
@@ -57,8 +58,25 @@ export class CatalogComponent implements OnInit {
                     lowRoute: l.route,
                     lowName: l.name,
                   },
-                })
-              );
+                });
+
+                if (lowestCategories?.length) {
+                  lowestCategories.forEach((lo) => {
+                    this.router.config.push({
+                      path: `${h.route}/${m.route}/${l.route}/${lo.route}`,
+                      component: ProductsComponent,
+                      data: {
+                        highRoute: h.route,
+                        mediumRoute: m.route,
+                        lowRoute: l.route,
+                        lowName: l.name,
+                        lowestRoute: lo.route,
+                        lowestName: lo.name,
+                      },
+                    });
+                  });
+                }
+              });
             }
           });
         }

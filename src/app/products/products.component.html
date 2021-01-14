@@ -9,7 +9,7 @@
     </strong>
     <ul>
       <li *ngFor="let category of lowestCategories"
-        (click)="lowestCategoryClickedHandler(category)"
+        (click)="lowestCategoryClickedHandler(category.route)"
         [class.selected-lowest-category]="category.route === selectedCategoryRoute">
         {{ category.name }}
       </li>

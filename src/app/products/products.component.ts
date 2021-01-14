@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LowestCategory } from '../models/lowest-category.model';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../products.service';
+import { CatalogService } from '../services/catalog.service';
 
 @Component({
   selector: 'app-products',
@@ -12,49 +13,60 @@ import { ProductsService } from '../products.service';
 export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
-    private route: ActivatedRoute
+    private catalogService: CatalogService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   readonly colCount = 3;
+  highCategoryName: string;
+  highCategoryRoute: string;
+  mediumCategoryName: string;
+  mediumCategoryRoute: string;
   lowCategoryName: string;
   lowCategoryRoute: string;
   lowestCategories: LowestCategory[];
-  allProducts: Product[] = [];
   products: Product[][] = [];
   selectedCategoryRoute: string;
   loading: boolean = false;
 
   async ngOnInit() {
     this.loading = true;
+    this.highCategoryName = this.route.snapshot.data.highName;
+    this.highCategoryRoute = this.route.snapshot.data.highRoute;
+    this.mediumCategoryName = this.route.snapshot.data.mediumName;
+    this.mediumCategoryRoute = this.route.snapshot.data.mediumRoute;
     this.lowCategoryName = this.route.snapshot.data.lowName;
     this.lowCategoryRoute = this.route.snapshot.data.lowRoute;
-    this.selectedCategoryRoute = this.route.snapshot.data.lowRoute;
-    const lowRoute: string = this.route.snapshot.data.lowRoute;
-    this.lowestCategories = await this.productService.getLowestCategories(
-      lowRoute
+    const lowestCategoryRoute = this.route.snapshot.data.lowestRoute;
+    this.lowestCategories = this.catalogService.lowestCategories.value.filter(
+      (c) => c.lowCategoryRoute === this.lowCategoryRoute
     );
+    let allProducts: Product[] = [];
 
-    if (this.lowestCategories?.length) {
+    if (lowestCategoryRoute) {
+      allProducts = await this.productService.getProducts(lowestCategoryRoute);
+      this.selectedCategoryRoute = lowestCategoryRoute;
+    } else if (this.lowestCategories?.length) {
+      this.selectedCategoryRoute = this.lowCategoryRoute;
+
       for (let i = 0; i < this.lowestCategories.length; i++) {
         const categoryProducts: Product[] = await this.productService.getProducts(
           this.lowestCategories[i].route
         );
 
         if (categoryProducts?.length) {
-          this.allProducts = this.allProducts.concat(categoryProducts);
+          allProducts = allProducts.concat(categoryProducts);
         }
       }
-
-      this.initColumnProducts(this.allProducts);
     }
 
+    this.initColumnProducts(allProducts);
     this.loading = false;
   }
 
   initColumnProducts(categoryProducts: Product[]): void {
     const rowCount = Math.ceil(categoryProducts.length / this.colCount);
-    const maxProductsColCount =
-      categoryProducts.length - rowCount * (rowCount - 1);
     this.products = [];
 
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
@@ -73,14 +85,14 @@ export class ProductsComponent implements OnInit {
   }
 
   lowCategoryClickHandler(): void {
-    this.selectedCategoryRoute = this.lowCategoryRoute;
-    this.initColumnProducts(this.allProducts);
+    this.router.navigateByUrl(
+      `${this.highCategoryRoute}/${this.mediumCategoryRoute}/${this.lowCategoryRoute}`
+    );
   }
 
-  lowestCategoryClickedHandler(category: LowestCategory): void {
-    this.selectedCategoryRoute = category.route;
-    this.initColumnProducts(
-      this.allProducts.filter((p) => p.lowestCategoryRoute === category.route)
+  lowestCategoryClickedHandler(lowestCategoryRoute: string): void {
+    this.router.navigateByUrl(
+      `${this.highCategoryRoute}/${this.mediumCategoryRoute}/${this.lowCategoryRoute}/${lowestCategoryRoute}`
     );
   }
 }

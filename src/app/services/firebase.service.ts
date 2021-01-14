@@ -65,27 +65,19 @@ export class FirebaseService {
     return this.database.list<HighCategory>('high-categories').valueChanges();
   }
 
-  getMediumCategories(highCategoryRoute: string): Observable<MediumCategory[]> {
+  getMediumCategories(): Observable<MediumCategory[]> {
     return this.database
-      .list<MediumCategory>('medium-categories', (query) =>
-        query.orderByChild('highCategoryRoute').equalTo(highCategoryRoute)
-      )
+      .list<MediumCategory>('medium-categories')
       .valueChanges();
   }
 
-  getLowCategories(mediumCategoryRoute: string): Observable<LowCategory[]> {
-    return this.database
-      .list<LowCategory>('low-categories', (query) =>
-        query.orderByChild('mediumCategoryRoute').equalTo(mediumCategoryRoute)
-      )
-      .valueChanges();
+  getLowCategories(): Observable<LowCategory[]> {
+    return this.database.list<LowCategory>('low-categories').valueChanges();
   }
 
-  getLowestCategories(lowCategoryRoute: string): Observable<LowestCategory[]> {
+  getLowestCategories(): Observable<LowestCategory[]> {
     return this.database
-      .list<LowestCategory>('lowest-categories', (query) => {
-        return query.orderByChild('lowCategoryRoute').equalTo(lowCategoryRoute);
-      })
+      .list<LowestCategory>('lowest-categories')
       .valueChanges();
   }
 
@@ -166,7 +158,7 @@ export class FirebaseService {
               .pipe(take(1))
               .toPromise();
             return Promise.resolve(
-              `${highCategories[0].route}/${mediumCategories[0].route}/${lowCategories[0].route}`
+              `${highCategories[0].route}/${mediumCategories[0].route}/${lowCategories[0].route}/${lowestCategories[0].route}`
             );
           }
         }
