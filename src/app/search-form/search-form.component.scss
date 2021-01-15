@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 #searchForm {
   display: flex;
   flex-direction: row;
@@ -15,6 +17,10 @@
   max-width: 100px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+
+#searchBtn:disabled {
+  background-color: $base-color;
 }
 
 #searchIcon {

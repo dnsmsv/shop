@@ -15,6 +15,7 @@
         Sign Up
       </div>
       <div
+        *ngIf="!authorized"
         class="btn-transparent login-selector"
         [class.selected]="isLogin"
         (click)="selectLogin()">

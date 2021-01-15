@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertType } from '../models/alert-type';
+import { User } from '../models/user.model';
+import { AlertService } from '../services/alert.service';
+import { AuthService } from '../services/auth.service';
 import { CatalogService } from '../services/catalog.service';
 import { UserService } from '../services/user.service';
 
@@ -10,16 +14,20 @@ import { UserService } from '../services/user.service';
 export class MainMenuComponent implements OnInit {
   constructor(
     private catalogService: CatalogService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService,
+    private alertService: AlertService
   ) {}
 
   catalogVisibility: boolean = false;
   accountManuVisibility: boolean = false;
+  userName: string;
 
   ngOnInit(): void {
     this.catalogService.catalogVisibility.subscribe((visibility) => {
       this.catalogVisibility = visibility;
     });
+    this.userService.user.subscribe((user) => (this.userName = user?.name));
   }
 
   accountMouseenterHandler(): void {
@@ -38,5 +46,11 @@ export class MainMenuComponent implements OnInit {
     this.userService.showLoginSignupForm(true);
   }
 
-  Logout(): void {}
+  async logout(): Promise<void> {
+    try {
+      await this.authService.logout();
+    } catch (error) {
+      this.alertService.show(error.message, AlertType.Error);
+    }
+  }
 }

@@ -10,6 +10,7 @@ import { LowestCategory } from '../models/lowest-category.model';
 import { MainDiscount } from '../models/main-discount.model';
 import { MediumCategory } from '../models/medium-category.model';
 import { Product } from '../models/product.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,20 @@ export class FirebaseService {
     private storage: AngularFireStorage,
     private database: AngularFireDatabase
   ) {}
+
+  postUser(user: User): void {
+    this.database.list('users').push(user);
+  }
+
+  getUser(email: string): Promise<User[]> {
+    return this.database
+      .list<User>('users', (query) => {
+        return query.orderByChild('email').equalTo(email).limitToFirst(1);
+      })
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
 
   getMainDiscounts(): Promise<MainDiscount[]> {
     return this.database

@@ -24,10 +24,14 @@ import { ProductComponent } from './product/product.component';
 import { LoginSignupFormComponent } from './login-signup-form/login-signup-form.component';
 import { DiscountsComponent } from './discounts/discounts.component';
 import { DiscountComponent } from './discount/discount.component';
+import { AlertComponent } from './alert/alert.component';
+import { AuthService } from './services/auth.service';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
     MainMenuComponent,
     MainComponent,
     AccountComponent,
@@ -53,7 +57,7 @@ import { DiscountComponent } from './discount/discount.component';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
   ],
-  providers: [],
+  providers: [AuthService, AlertService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -47,6 +47,10 @@ li {
   cursor: pointer;
 }
 
+.btn:disabled {
+  background-color: #dbdbdb;
+}
+
 .btn-light {
   @extend .btn;
   background-color: $light-base-color;
