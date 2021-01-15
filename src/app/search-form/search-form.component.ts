@@ -4,6 +4,7 @@ import { Discount } from '../models/discount.model';
 import { HighCategory } from '../models/high-category.model';
 import { LowCategory } from '../models/low-category.model';
 import { LowestCategory } from '../models/lowest-category.model';
+import { MainDiscount } from '../models/main-discount.model';
 import { MediumCategory } from '../models/medium-category.model';
 import { Product } from '../models/product.model';
 import { DatabaseService } from '../services/database.service';
@@ -178,6 +179,11 @@ export class SearchFormComponent implements OnInit {
       new Product('pajamas', '58', 'Pajama', 713, 1299, 1),
       new Product('pajamas', '59', 'Pajama', 999, 1590, 2),
       new Product('pajamas', '60', 'Pajama PINKY', 1260, 2100, 1),
+    ]);
+    this.databaseService.postMainDiscounts([
+      new MainDiscount('outewear', 'main-discounts/outewear.jpg'),
+      new MainDiscount('sweaters', 'main-discounts/sweaters.jpg'),
+      new MainDiscount('sweaters', 'main-discounts/jumpers.jpg'),
     ]);
     this.databaseService.postDiscount([
       new Discount('17'),

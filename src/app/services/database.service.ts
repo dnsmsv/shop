@@ -49,19 +49,20 @@ export class DatabaseService {
   //   });
   // }
 
-  postImg() {
-    const m = new MainDiscount(1, 'main-discounts/acvafor.jpg');
-    this.http
-      .post<MainDiscount>(
-        `${environment.firebase.databaseURL}/main-discounts.json`,
-        m,
-        {
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      )
-      .subscribe(() => console.log('Success'));
+  postMainDiscounts(mainDiscounts: MainDiscount[]) {
+    mainDiscounts.forEach((d) => {
+      this.http
+        .post<MainDiscount>(
+          `${environment.firebase.databaseURL}/main-discounts.json`,
+          d,
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        )
+        .subscribe(() => console.log('Success'));
+    });
   }
 
   postProduct(products: Product[]) {

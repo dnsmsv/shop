@@ -1,9 +1,9 @@
 export class MainDiscount {
-  constructor(productId: number, storagePath: string) {
-    this.productId = productId;
+  constructor(lowestCategoryRoute: string, storagePath: string) {
+    this.lowestCategoryRoute = lowestCategoryRoute;
     this.storagePath = storagePath;
   }
 
-  productId: number;
+  lowestCategoryRoute: string;
   storagePath: string;
 }

@@ -20,24 +20,19 @@ export class FirebaseService {
     private database: AngularFireDatabase
   ) {}
 
-  getMainDiscountUrls() {
-    return new Promise<string[]>((resolve) => {
-      this.database
-        .list<MainDiscount>('main-discounts')
-        .valueChanges()
-        .subscribe((discounts) => {
-          const urls = [];
-          discounts.forEach((discount) => {
-            this.storage
-              .ref(discount.storagePath)
-              .getDownloadURL()
-              .subscribe((url) => {
-                urls.push(url);
-                resolve(urls);
-              });
-          });
-        });
-    });
+  getMainDiscounts(): Promise<MainDiscount[]> {
+    return this.database
+      .list<MainDiscount>('main-discounts')
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
+
+  getMainDiscountPictureUrl(mainDiscount: MainDiscount): Promise<string> {
+    return this.storage
+      .ref(mainDiscount.storagePath)
+      .getDownloadURL()
+      .toPromise();
   }
 
   async getProductPictureUrls(product: Product): Promise<string[]> {
@@ -177,5 +172,6 @@ export class FirebaseService {
     this.database.object('lowest-categories').remove();
     this.database.object('products').remove();
     this.database.object('discounts').remove();
+    this.database.object('main-discounts').remove();
   }
 }

@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { MainDiscount } from '../models/main-discount.model';
 import { FirebaseService } from '../services/firebase.service';
 
 @Component({
@@ -6,22 +14,48 @@ import { FirebaseService } from '../services/firebase.service';
   templateUrl: './main-discounts-slider.component.html',
   styleUrls: ['./main-discounts-slider.component.scss'],
 })
-export class MainDiscountsSliderComponent implements OnInit {
+export class MainDiscountsSliderComponent implements OnInit, OnDestroy {
   private slideTimout: NodeJS.Timeout;
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private firebaseService: FirebaseService,
+    private router: Router
+  ) {}
 
-  discountUrls: string[];
+  @ViewChild('slider') slider: ElementRef;
+  mainDiscounts: MainDiscount[];
+  discountUrls: string[] = [];
   selectedIndex: number = 0;
 
-  ngOnInit(): void {
-    this.firebaseService.getMainDiscountUrls().then((urls) => {
-      this.discountUrls = urls;
-    });
+  async ngOnInit() {
+    this.mainDiscounts = await this.firebaseService.getMainDiscounts();
+
+    if (this.mainDiscounts?.length) {
+      for (let i = 0; i < this.mainDiscounts.length; i++) {
+        const url: string = await this.firebaseService.getMainDiscountPictureUrl(
+          this.mainDiscounts[i]
+        );
+        this.discountUrls.push(url);
+      }
+    }
+
     this.startSliderSimeout();
   }
 
-  leftBtnHandler() {
+  ngOnDestroy() {
+    clearTimeout(this.slideTimout);
+  }
+
+  async sliderClickHandler(event: MouseEvent) {
+    if (event.target === this.slider.nativeElement) {
+      const fullRoute: string = await this.firebaseService.getFullRoute(
+        this.mainDiscounts[this.selectedIndex].lowestCategoryRoute
+      );
+      this.router.navigateByUrl(fullRoute);
+    }
+  }
+
+  leftBtnHandler(): void {
     this.startSliderSimeout();
 
     if (this.discountUrls && this.discountUrls.length) {
@@ -32,18 +66,18 @@ export class MainDiscountsSliderComponent implements OnInit {
     }
   }
 
-  rightBtnHandler() {
+  rightBtnHandler(): void {
     this.startSliderSimeout();
     if (this.discountUrls && this.discountUrls.length) {
       this.selectedIndex = (this.selectedIndex + 1) % this.discountUrls.length;
     }
   }
 
-  selectorHandler(index: number) {
+  selectorHandler(index: number): void {
     this.selectedIndex = index;
   }
 
-  private startSliderSimeout() {
+  private startSliderSimeout(): void {
     clearTimeout(this.slideTimout);
     this.slideTimout = setTimeout(() => {
       this.rightBtnHandler();
