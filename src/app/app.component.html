@@ -1,6 +1,6 @@
 <div id="app">
   <div id="shop">
-    <app-login-signup-form></app-login-signup-form>
+    <app-login-signup-form *ngIf="visibility"></app-login-signup-form>
     <div id="menu">
       <app-main-menu></app-main-menu>
     </div>

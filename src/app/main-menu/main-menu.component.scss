@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 #main-menu {
   display: flex;
   flex-direction: row;
@@ -37,11 +39,51 @@ app-search-form {
   height: 25px;
   margin-left: 10px;
   margin-right: 10px;
+  position: relative;
 }
 
 #account:hover {
   background: url("../../assets/selected-user.png");
   cursor: pointer;
+}
+
+#account-menu {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: -42px;
+  background-color: white;
+  box-shadow: 0px -5px 10px #00000020;
+  border-radius: 4px;
+
+  #signup-btn {
+    width: 90px;
+    margin: 10px;
+  }
+
+  #login-btn {
+    width: 90px;
+    margin: 10px;
+  }
+
+  #logout-btn {
+    width: 90px;
+    margin: 10px;
+  }
+}
+
+#account-menu::before {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 42px;
+  border-width: 13px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+#account-menu.visibility {
+  display: block;
 }
 
 #orderList {

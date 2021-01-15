@@ -1,7 +1,73 @@
-<div class="container"
-  *ngIf="visibility">
+<div #container class="container"
+  (click)="close($event)">
   <div class="card">
-    <div id="closeBtn" class="noselection">X</div>
+    <div 
+      #closeBtn
+      id="close-btn" 
+      class="noselection">
+    </div>
     <div id="logo"></div>
+    <div id="selectors">
+      <div
+        class="btn-transparent signup-selector"
+        [class.selected]="!isLogin"
+        (click)="selectSignup()">
+        Sign Up
+      </div>
+      <div
+        class="btn-transparent login-selector"
+        [class.selected]="isLogin"
+        (click)="selectLogin()">
+        Login
+      </div>
+    </div>
+    <form #loginSignupForm="ngForm">
+      <input 
+        *ngIf="!isLogin"
+        type="text"
+        name="name"
+        class="inp-light"
+        placeholder="Enter your name"
+        [(ngModel)]="name"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        class="inp-light"
+        placeholder="Enter your email address"
+        [(ngModel)]="email"
+        maxlength="60"
+        required
+      />
+      <input 
+        type="password"
+        name="password"
+        class="inp-light"
+        placeholder="Enter a password"
+        [(ngModel)]="password"
+        required
+      />
+
+      <button
+        *ngIf="!isLogin"
+        [disabled]="!loginSignupForm.form.valid"
+        type="submit"
+        class="btn"
+        id="signup-btn"
+        (click)="signup()">
+        Sign Up
+      </button>
+
+      <button
+        *ngIf="isLogin"
+        [disabled]="!loginSignupForm.form.valid"
+        type="submit"
+        class="btn"
+        id="login-btn"
+        (click)="login()">
+        Login
+      </button>
+    </form>
   </div>
 </div>

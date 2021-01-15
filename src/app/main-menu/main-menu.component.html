@@ -2,7 +2,33 @@
   <div id="logo" class="noselection" routerLink="/main"></div>
   <app-catalog-menu></app-catalog-menu>
   <app-search-form></app-search-form>
-  <div id="account"></div>
+  <div 
+    id="account"
+    (mouseenter)="accountMouseenterHandler()"
+    (mouseleave)="accountMouseleaveHandler()">
+    <div 
+      id="account-menu"
+      [class.visibility]="accountManuVisibility">
+      <div 
+        id="signup-btn" 
+        class="btn"
+        (click)="signup()">
+        Sign up
+      </div>
+      <div 
+        id="login-btn" 
+        class="btn-light"
+        (click)="login()">
+        Login
+      </div>
+      <div
+        id="logout-btn"
+        (click)="Logout()"
+        class="btn-transparent">
+        Logout
+      </div>
+    </div>
+  </div>
   <div id="orderList" class="tooltip">
     <span class="tooltiptext">Order list</span>
   </div>

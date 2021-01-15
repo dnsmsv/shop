@@ -11,11 +11,14 @@ export class UserService {
 
   constructor() {}
 
+  login: boolean = true;
+
   get loginSignupVisibility() {
     return this._loginSignupVisibility;
   }
 
-  showLoginSignupForm(): void {
+  showLoginSignupForm(login: boolean): void {
+    this.login = login;
     this.loginSignupVisibility.next(true);
   }
 
