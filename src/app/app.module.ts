@@ -27,6 +27,7 @@ import { DiscountComponent } from './discount/discount.component';
 import { AlertComponent } from './alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AlertService } from './services/alert.service';
     LoginSignupFormComponent,
     DiscountsComponent,
     DiscountComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,

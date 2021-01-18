@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Discount } from '../models/discount.model';
+import { Favorite } from '../models/favorite.model';
 import { HighCategory } from '../models/high-category.model';
 import { LowCategory } from '../models/low-category.model';
 import { LowestCategory } from '../models/lowest-category.model';
@@ -31,6 +32,35 @@ export class FirebaseService {
         return query.orderByChild('email').equalTo(email).limitToFirst(1);
       })
       .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
+
+  postFavoriteProduct(favorite: Favorite): void {
+    const ref = this.database.list('favorites').push(favorite);
+    favorite.key = ref.key;
+  }
+
+  removeFavoriteProduct(favorite: Favorite): Promise<void> {
+    if (favorite.key) {
+      return this.database.list<User>(`favorites/${favorite.key}`).remove();
+    }
+  }
+
+  getFavoriteProducts(userEmail: string): Promise<Favorite[]> {
+    return this.database
+      .list<Favorite>('favorites', (query) =>
+        query.orderByChild('userEmail').equalTo(userEmail)
+      )
+      .snapshotChanges()
+      .pipe<Favorite[]>(
+        map((changes) => {
+          return changes.map((c) => ({
+            key: c.payload.key,
+            ...c.payload.val(),
+          }));
+        })
+      )
       .pipe(take(1))
       .toPromise();
   }

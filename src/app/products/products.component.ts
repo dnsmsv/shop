@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LowestCategory } from '../models/lowest-category.model';
 import { Product } from '../models/product.model';
-import { ProductsService } from '../products.service';
+import { ProductsService } from '../services/products.service';
 import { CatalogService } from '../services/catalog.service';
+import { Favorite } from '../models/favorite.model';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-products',
@@ -14,6 +16,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private catalogService: CatalogService,
+    private favoritesService: FavoritesService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -94,5 +97,9 @@ export class ProductsComponent implements OnInit {
     this.router.navigateByUrl(
       `${this.highCategoryRoute}/${this.mediumCategoryRoute}/${this.lowCategoryRoute}/${lowestCategoryRoute}`
     );
+  }
+
+  getFavorite(productId: string): Favorite {
+    return this.favoritesService.getFavorite(productId);
   }
 }

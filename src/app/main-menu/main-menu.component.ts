@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertType } from '../models/alert-type';
 import { User } from '../models/user.model';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 import { CatalogService } from '../services/catalog.service';
+import { FavoritesService } from '../services/favorites.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -13,21 +15,33 @@ import { UserService } from '../services/user.service';
 })
 export class MainMenuComponent implements OnInit {
   constructor(
-    private catalogService: CatalogService,
-    private userService: UserService,
+    private alertService: AlertService,
     private authService: AuthService,
-    private alertService: AlertService
+    private catalogService: CatalogService,
+    private favoritesService: FavoritesService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   catalogVisibility: boolean = false;
   accountManuVisibility: boolean = false;
   userName: string;
+  favoritesCount: number = 0;
 
   ngOnInit(): void {
     this.catalogService.catalogVisibility.subscribe((visibility) => {
       this.catalogVisibility = visibility;
     });
-    this.userService.user.subscribe((user) => (this.userName = user?.name));
+    this.favoritesService.favorites.subscribe(
+      (f) => (this.favoritesCount = f.length)
+    );
+    this.userService.user.subscribe((user) => {
+      if (user) this.userName = user.name;
+      else {
+        this.userName = '';
+        this.favoritesCount = 0;
+      }
+    });
   }
 
   accountMouseenterHandler(): void {
@@ -49,8 +63,13 @@ export class MainMenuComponent implements OnInit {
   async logout(): Promise<void> {
     try {
       await this.authService.logout();
+      this.favoritesService.clear();
     } catch (error) {
       this.alertService.show(error.message, AlertType.Error);
     }
+  }
+
+  showFavorites(): void {
+    this.router.navigateByUrl('/favorites');
   }
 }

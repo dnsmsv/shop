@@ -8,8 +8,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { AlertType } from '../models/alert-type';
+import { Favorite } from '../models/favorite.model';
 import { Product } from '../models/product.model';
+import { AlertService } from '../services/alert.service';
+import { FavoritesService } from '../services/favorites.service';
 import { FirebaseService } from '../services/firebase.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-product',
@@ -22,23 +27,39 @@ export class ProductComponent implements OnInit, AfterViewInit {
   private leftPosition: number;
   private width: number;
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private alertService: AlertService,
+    private favoritesService: FavoritesService,
+    private firebaseService: FirebaseService,
+    private userService: UserService
+  ) {}
 
   selectedUrl: string;
   urls: string[];
   mouseOnPicture: boolean = false;
-  isFavorite: boolean = false;
   selected: boolean = false;
+  isFavorite: boolean = false;
 
   @Input() product: Product;
+  @Input() favorite: Favorite;
 
   async ngOnInit() {
+    this.isFavorite = Boolean(this.favorite);
+
     if (this.product) {
       this.urls = await this.firebaseService.getProductPictureUrls(
         this.product
       );
 
       if (this.urls?.length) this.selectedUrl = this.urls[0];
+
+      if (!this.favorite) {
+        this.userService.user.subscribe((user) => {
+          if (user) {
+            this.favorite = new Favorite(user.email, this.product.id);
+          }
+        });
+      }
     }
   }
 
@@ -73,7 +94,20 @@ export class ProductComponent implements OnInit, AfterViewInit {
   }
 
   changeFavoriteState(): void {
-    this.isFavorite = !this.isFavorite;
+    if (this.userService.user.value) {
+      this.isFavorite = !this.isFavorite;
+
+      if (this.isFavorite) {
+        this.favoritesService.addFavorite(this.favorite);
+        this.firebaseService.postFavoriteProduct(this.favorite);
+      } else {
+        this.favoritesService.removeFavorite(this.favorite);
+        this.firebaseService.removeFavoriteProduct(this.favorite);
+      }
+    } else {
+      this.alertService.show('You should login or signup', AlertType.Info);
+      this.userService.showLoginSignupForm(true);
+    }
   }
 
   mouseenterHandler() {

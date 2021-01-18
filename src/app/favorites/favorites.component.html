@@ -1,0 +1,16 @@
+<h2>Favorites</h2>
+<h3 *ngIf="!favorites?.length">There is no favorites yet</h3>
+<div 
+  *ngIf="!favorites?.length"
+  id="empty">
+  <p id="text">Add products to Favorites by</p>
+  <div id="favorite-img"></div>
+</div>
+<div class="container"
+  *ngIf="favorites?.length">
+  <app-product 
+    *ngFor="let favorite of favorites"
+    [product]="favorite.product"
+    [favorite]="favorite.favorite">
+  </app-product>
+</div>

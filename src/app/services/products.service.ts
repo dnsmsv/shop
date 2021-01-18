@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Product } from './models/product.model';
-import { FirebaseService } from './services/firebase.service';
+import { Product } from '../models/product.model';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',

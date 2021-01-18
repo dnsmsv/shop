@@ -19,7 +19,10 @@
     <table>
       <tr *ngFor="let product of products">
         <td *ngFor="let p of product">
-          <app-product [product]="p"></app-product>
+          <app-product 
+            [product]="p"
+            [favorite]="p ? getFavorite(p.id) : null">
+          </app-product>
         </td>
       </tr>
   </table>
