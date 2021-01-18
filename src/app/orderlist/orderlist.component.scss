@@ -1,0 +1,17 @@
+h3 {
+  text-align: center;
+}
+
+#text {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
+  app-product {
+    margin-right: 20px;
+  }
+}

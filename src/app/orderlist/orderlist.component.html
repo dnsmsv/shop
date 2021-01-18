@@ -1,1 +1,11 @@
-<p>orderlist works!</p>
+<h2>Orders</h2>
+<h3 *ngIf="!orders?.length">There is no orders yet</h3>
+<p id="text" *ngIf="!orders?.length">Add products to Orders by 'Add to Card'</p>
+<div class="container"
+  *ngIf="orders?.length">
+  <app-product 
+    *ngFor="let order of orders"
+    [product]="order.product"
+    [order]="order.favorite">
+  </app-product>
+</div>

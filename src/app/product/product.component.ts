@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -10,10 +9,12 @@ import {
 } from '@angular/core';
 import { AlertType } from '../models/alert-type';
 import { Favorite } from '../models/favorite.model';
+import { Order } from '../models/order.model';
 import { Product } from '../models/product.model';
 import { AlertService } from '../services/alert.service';
 import { FavoritesService } from '../services/favorites.service';
 import { FirebaseService } from '../services/firebase.service';
+import { OrderlistService } from '../services/orderlist.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     private favoritesService: FavoritesService,
     private firebaseService: FirebaseService,
+    private orderlistService: OrderlistService,
     private userService: UserService
   ) {}
 
@@ -42,6 +44,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   @Input() product: Product;
   @Input() favorite: Favorite;
+  @Input() order: Order;
 
   async ngOnInit() {
     this.isFavorite = Boolean(this.favorite);
@@ -57,6 +60,14 @@ export class ProductComponent implements OnInit, AfterViewInit {
         this.userService.user.subscribe((user) => {
           if (user) {
             this.favorite = new Favorite(user.email, this.product.id);
+          }
+        });
+      }
+
+      if (!this.order) {
+        this.userService.user.subscribe((user) => {
+          if (user) {
+            this.order = new Order(user.email, this.product.id);
           }
         });
       }
@@ -118,5 +129,12 @@ export class ProductComponent implements OnInit, AfterViewInit {
     this.selected = false;
   }
 
-  addToCart(): void {}
+  addToCart(): void {
+    if (this.userService.user.value) {
+      this.orderlistService.addOrder(this.order);
+    } else {
+      this.alertService.show('You should login or signup', AlertType.Info);
+      this.userService.showLoginSignupForm(true);
+    }
+  }
 }

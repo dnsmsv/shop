@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertType } from '../models/alert-type';
-import { User } from '../models/user.model';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 import { CatalogService } from '../services/catalog.service';
 import { FavoritesService } from '../services/favorites.service';
+import { OrderlistService } from '../services/orderlist.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class MainMenuComponent implements OnInit {
     private authService: AuthService,
     private catalogService: CatalogService,
     private favoritesService: FavoritesService,
+    private orderlistService: OrderlistService,
     private userService: UserService,
     private router: Router
   ) {}
@@ -26,6 +27,7 @@ export class MainMenuComponent implements OnInit {
   catalogVisibility: boolean = false;
   accountManuVisibility: boolean = false;
   userName: string;
+  ordersCount: number = 0;
   favoritesCount: number = 0;
 
   ngOnInit(): void {
@@ -35,11 +37,19 @@ export class MainMenuComponent implements OnInit {
     this.favoritesService.favorites.subscribe(
       (f) => (this.favoritesCount = f.length)
     );
+    this.orderlistService.orders.subscribe((orders) => {
+      if (orders) {
+        orders.forEach((o) => {
+          this.ordersCount += o.count;
+        });
+      }
+    });
     this.userService.user.subscribe((user) => {
       if (user) this.userName = user.name;
       else {
         this.userName = '';
         this.favoritesCount = 0;
+        this.ordersCount = 0;
       }
     });
   }
@@ -67,6 +77,10 @@ export class MainMenuComponent implements OnInit {
     } catch (error) {
       this.alertService.show(error.message, AlertType.Error);
     }
+  }
+
+  showOrderlist(): void {
+    this.router.navigateByUrl('/orderlist');
   }
 
   showFavorites(): void {
