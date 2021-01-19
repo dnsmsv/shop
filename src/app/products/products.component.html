@@ -21,7 +21,8 @@
         <td *ngFor="let p of product">
           <app-product 
             [product]="p"
-            [favorite]="p ? getFavorite(p.id) : null">
+            [favorite]="p ? getFavorite(p.id) : null"
+            [order]="p ? getOrder(p.id) : null">
           </app-product>
         </td>
       </tr>

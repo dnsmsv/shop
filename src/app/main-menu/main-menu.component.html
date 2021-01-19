@@ -41,6 +41,11 @@
     class="tooltip"
     (click)="showOrderlist()">
     <span class="tooltiptext">Order list</span>
+    <div 
+      *ngIf="ordersCount > 0"
+      class="counter">
+      {{ ordersCount }}
+    </div>
   </div>
   <div 
     id="favoriteList" 

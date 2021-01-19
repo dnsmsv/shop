@@ -74,7 +74,13 @@ li {
 
 .btn-small {
   @extend .btn;
-  height: 2.3em;
+  height: 2.4em;
+  font-size: 0.9em;
+}
+
+.btn-small-light {
+  @extend .btn-light;
+  height: 2.4em;
   font-size: 0.9em;
 }
 

@@ -16,18 +16,14 @@ export class OrderlistService {
     return this._orders;
   }
 
-  addOrder(order: Order): void {
-    const existingOrder: Order = this.orders.value.find(
-      (o) => o.key === order.key
-    );
+  init(orders: Order[]): void {
+    this.orders.next(orders);
+  }
 
-    if (existingOrder) {
-      existingOrder.count++;
-    } else {
-      const newOrders: Order[] = this.orders.value;
-      newOrders.push(order);
-      this.orders.next(newOrders);
-    }
+  addOrder(order: Order): void {
+    const newOrders: Order[] = this.orders.value;
+    newOrders.push(order);
+    this.orders.next(newOrders);
   }
 
   removeOrder(order: Order): void {
@@ -43,5 +39,9 @@ export class OrderlistService {
 
   clear(): void {
     this.orders.next([]);
+  }
+
+  update(): void {
+    this.orders.next(this.orders.value);
   }
 }

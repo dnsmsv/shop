@@ -131,10 +131,24 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   addToCart(): void {
     if (this.userService.user.value) {
+      this.order.count++;
       this.orderlistService.addOrder(this.order);
+      this.firebaseService.postOrder(this.order);
     } else {
       this.alertService.show('You should login or signup', AlertType.Info);
       this.userService.showLoginSignupForm(true);
     }
+  }
+
+  minusBtnHandler(): void {
+    this.order.count--;
+    this.orderlistService.update();
+    this.firebaseService.updateOrder(this.order);
+  }
+
+  plusBtnHandler(): void {
+    this.order.count++;
+    this.orderlistService.update();
+    this.firebaseService.updateOrder(this.order);
   }
 }

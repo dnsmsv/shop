@@ -6,6 +6,8 @@ import { ProductsService } from '../services/products.service';
 import { CatalogService } from '../services/catalog.service';
 import { Favorite } from '../models/favorite.model';
 import { FavoritesService } from '../services/favorites.service';
+import { OrderlistService } from '../services/orderlist.service';
+import { Order } from '../models/order.model';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +19,7 @@ export class ProductsComponent implements OnInit {
     private productService: ProductsService,
     private catalogService: CatalogService,
     private favoritesService: FavoritesService,
+    private orderlistService: OrderlistService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -101,5 +104,9 @@ export class ProductsComponent implements OnInit {
 
   getFavorite(productId: string): Favorite {
     return this.favoritesService.getFavorite(productId);
+  }
+
+  getOrder(productId: string): Order {
+    return this.orderlistService.getOrder(productId);
   }
 }

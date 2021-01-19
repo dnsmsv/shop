@@ -32,9 +32,27 @@
     [class.selected]="selected">
     {{ product?.name }}
   </p>
-  <button class="btn-small add-btn"
-    *ngIf="product"
+  <button 
+    class="btn-small add-btn"
+    *ngIf="product && !order?.count"
     (click)="addToCart()">
     Add to Cart
+  </button>
+  <button 
+    class="btn-small-light minus-btn"
+    *ngIf="product && order?.count"
+    (click)="minusBtnHandler()">
+    –
+  </button>
+  <div 
+    class="count"
+    *ngIf="product && order?.count">
+    {{ order?.count }}
+  </div>
+  <button 
+    class="btn-small plus-btn"
+    *ngIf="product && order?.count"
+    (click)="plusBtnHandler()">
+    +
   </button>
 </div>

@@ -38,6 +38,8 @@ export class MainMenuComponent implements OnInit {
       (f) => (this.favoritesCount = f.length)
     );
     this.orderlistService.orders.subscribe((orders) => {
+      this.ordersCount = 0;
+
       if (orders) {
         orders.forEach((o) => {
           this.ordersCount += o.count;
@@ -74,6 +76,7 @@ export class MainMenuComponent implements OnInit {
     try {
       await this.authService.logout();
       this.favoritesService.clear();
+      this.orderlistService.clear();
     } catch (error) {
       this.alertService.show(error.message, AlertType.Error);
     }

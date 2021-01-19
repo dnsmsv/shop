@@ -10,6 +10,7 @@ import { LowCategory } from '../models/low-category.model';
 import { LowestCategory } from '../models/lowest-category.model';
 import { MainDiscount } from '../models/main-discount.model';
 import { MediumCategory } from '../models/medium-category.model';
+import { Order } from '../models/order.model';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
 
@@ -54,6 +55,37 @@ export class FirebaseService {
       )
       .snapshotChanges()
       .pipe<Favorite[]>(
+        map((changes) => {
+          return changes.map((c) => ({
+            key: c.payload.key,
+            ...c.payload.val(),
+          }));
+        })
+      )
+      .pipe(take(1))
+      .toPromise();
+  }
+
+  postOrder(order: Order): void {
+    const orderRef = this.database.database.ref(`orders`);
+    const ref = orderRef.push(order);
+    order.key = ref.key;
+  }
+
+  updateOrder(order: Order): void {
+    if (order.key) {
+      const orderRef = this.database.database.ref(`orders`);
+      orderRef.child(order.key).update({ count: order.count });
+    }
+  }
+
+  getOrders(userEmail: string): Promise<Order[]> {
+    return this.database
+      .list<Order>('orders', (query) =>
+        query.orderByChild('userEmail').equalTo(userEmail)
+      )
+      .snapshotChanges()
+      .pipe<Order[]>(
         map((changes) => {
           return changes.map((c) => ({
             key: c.payload.key,
