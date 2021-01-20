@@ -12,9 +12,13 @@ h3 {
   height: 100%;
   display: flex;
 
-  ul {
+  .orders {
     flex: 7;
     margin-right: 25px;
+
+    label {
+      margin-top: 5px;
+    }
   }
 
   .general {
@@ -29,6 +33,11 @@ h3 {
 
     .checkout-btn:disabled {
       background-color: rgb(230, 230, 230);
+    }
+
+    .description {
+      font-size: 0.8em;
+      color: #a8a8a8;
     }
 
     .head {
@@ -93,5 +102,5 @@ h3 {
 hr {
   border-top: 1px #dbdbdb solid;
   border-left: 0px;
-  margin: 25px 0;
+  margin: 20px 0;
 }

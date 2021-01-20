@@ -1,26 +1,31 @@
 <h2>Shopping Cart</h2>
 <h3 *ngIf="!orders?.length">There is no orders yet</h3>
 <p id="text" *ngIf="!orders?.length">Add products to Orders by 'Add to Card'</p>
-<div class="container"
+<div 
+  class="container"
   *ngIf="orders?.length">
-  <input 
-    class="check" 
-    [class.checked]="allChecked"
-    type="checkbox" 
-    [ngModel]="allChecked"
-    (click)="checkboxClickHandler()">
-  <ul>
-    <li *ngFor="let order of orders">
-      <hr>
-      <app-order 
-        [product]="order.product"
-        [order]="order.order"
-        [checked]="order.checked"
-        (checkChanged)="checkChanged($event, order)"
-        (countChanged)="countChanged($event, order.product)">
-      </app-order>
-    </li>
-  </ul>
+  <div class="orders">
+    <input 
+      class="check" 
+      [class.checked]="allChecked"
+      type="checkbox" 
+      name="check-all"
+      [ngModel]="allChecked"
+      (click)="checkboxClickHandler()">
+    <label for="check-all">{{ allChecked ? 'Unselect all' : 'Select all' }}</label>
+    <ul>
+      <li *ngFor="let order of orders">
+        <hr>
+        <app-order 
+          [product]="order.product"
+          [order]="order.order"
+          [checked]="order.checked"
+          (checkChanged)="checkChanged($event, order)"
+          (countChanged)="countChanged($event, order.product)">
+        </app-order>
+      </li>
+    </ul>
+  </div>
   <div class="general">
     <button 
       class="checkout-btn btn"
@@ -28,6 +33,7 @@
       (click)="checkout()">
       Procced to checkout
     </button>
+    <p class="description">Available delivery methods and time can be selected at checkout</p>
     <hr>
     <div class="head">
       <h4>Your cart</h4>
