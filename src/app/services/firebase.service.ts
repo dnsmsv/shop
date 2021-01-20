@@ -129,6 +129,10 @@ export class FirebaseService {
     return Promise.all(promises);
   }
 
+  getPictureUrl(path: string): Promise<string> {
+    return this.storage.ref(path).getDownloadURL().toPromise();
+  }
+
   async getDiscountPictureUrl(picturePath: string): Promise<string> {
     return await this.storage.ref(picturePath).getDownloadURL().toPromise();
   }

@@ -1,0 +1,27 @@
+<div class="order">
+  <input 
+    class="check" 
+    [class.checked]="checked"
+    type="checkbox" 
+    [ngModel]="checked"
+    (click)="checkClickHandler()">
+  <div 
+    class="picture"
+    [style.background]="pictureUrl ? 'url(' + pictureUrl + ')' : ''">
+  </div>
+  <div class="name">{{ product?.name }}
+  </div>
+  <div class="price">
+    <strong class="new-price">{{ product ? product.price + ' ₽' : '' }}</strong>
+    <p class="old-price">{{ product?.oldPrice ? product.oldPrice + ' ₽' : '' }}</p>
+    <p class="discount">{{ product?.oldPrice ? 'Discount is ' + (product.oldPrice - product.price) + ' ₽' : '' }}</p>
+  </div>
+  <select class="count" (change)="onchangeHandler($event.target.value)">
+    <option
+      *ngFor="let countItem of counts" 
+      [value]="countItem"
+      [selected]="countItem === order.count">
+      {{ countItem }}
+    </option>
+  </select>
+</div>

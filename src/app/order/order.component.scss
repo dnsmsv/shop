@@ -1,0 +1,56 @@
+@import "../../styles.scss";
+
+.order {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .picture {
+    flex: 0 150px;
+    height: 150px;
+    margin: 0 25px;
+  }
+
+  .name {
+    flex: 1;
+  }
+
+  .price {
+    flex: 0 auto;
+    width: 120px;
+    margin-right: 25px;
+
+    .new-price {
+      margin: 3px 0;
+      font-size: 0.95em;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #a3a3a3;
+      font-size: 0.9em;
+      margin: 3px 0;
+    }
+
+    .discount {
+      color: $red-color;
+      font-size: 0.9em;
+      margin: 3px 0;
+    }
+  }
+
+  .count {
+    width: 90px;
+    border: lightgray 2px solid;
+    border-radius: 3px;
+    outline: none;
+    padding: 7px;
+    color: #424242;
+  }
+}
+
+option {
+  color: #424242;
+  margin: 10px 0;
+  font-size: 1em;
+}

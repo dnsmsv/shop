@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertComponent } from '../alert/alert.component';
+import { AlertType } from '../models/alert-type';
 import { Order } from '../models/order.model';
+import { Product } from '../models/product.model';
+import { AlertService } from '../services/alert.service';
 import { FirebaseService } from '../services/firebase.service';
 import { OrderlistService } from '../services/orderlist.service';
 
@@ -10,23 +14,128 @@ import { OrderlistService } from '../services/orderlist.service';
 })
 export class OrderlistComponent implements OnInit {
   constructor(
+    private alertService: AlertService,
     private firebaseService: FirebaseService,
     private orderlistService: OrderlistService
   ) {}
 
   orders: any[];
+  ordersTotalCount: number;
+  ordersTotalPrice: number;
+  ordersTotalOldPrice: number;
+  ordersTotalDiscount: number;
+  allChecked: boolean = true;
 
   async ngOnInit() {
     this.orderlistService.orders.subscribe(async (orders) => {
       this.orders = [];
+      this.ordersTotalCount = 0;
+      this.ordersTotalPrice = 0;
+      this.ordersTotalOldPrice = 0;
+      this.ordersTotalDiscount = 0;
 
       for (let i = 0; i < orders.length; i++) {
         const p = await this.firebaseService.getProduct(orders[i].productId);
-        this.orders = this.orders.concat({
-          product: p?.length ? p[0] : null,
-          favorite: orders[i],
-        });
+
+        if (p?.length) {
+          this.orders = this.orders.concat({
+            product: p[0],
+            order: orders[i],
+            checked: true,
+          });
+          this.ordersTotalCount += orders[i].count;
+          this.ordersTotalPrice += orders[i].count * p[0].price;
+
+          this.ordersTotalOldPrice +=
+            orders[i].count * (p[0].oldPrice ? p[0].oldPrice : p[0].price);
+          this.ordersTotalDiscount += p[0].oldPrice
+            ? orders[i].count * (p[0].oldPrice - p[0].price)
+            : 0;
+        }
       }
     });
+  }
+
+  checkChanged(checked: boolean, order): void {
+    order.checked = checked;
+
+    if (checked) {
+      let allTrue = true;
+
+      for (let i = 0; i < this.orders.length; i++) {
+        if (!this.orders[i].checked) allTrue = false;
+      }
+
+      if (allTrue) this.allChecked = true;
+
+      this.ordersTotalCount += order.order.count;
+      this.ordersTotalOldPrice +=
+        order.order.count *
+        (order.product.oldPrice ? order.product.oldPrice : order.product.price);
+      this.ordersTotalPrice += order.order.count * order.product.price;
+      this.ordersTotalDiscount += order.product.oldPrice
+        ? order.order.count * (order.product.oldPrice - order.product.price)
+        : 0;
+    } else {
+      this.allChecked = false;
+      this.ordersTotalCount -= order.order.count;
+      this.ordersTotalOldPrice -=
+        order.order.count *
+        (order.product.oldPrice ? order.product.oldPrice : order.product.price);
+      this.ordersTotalPrice -= order.order.count * order.product.price;
+      this.ordersTotalDiscount -= order.product.oldPrice
+        ? order.order.count * (order.product.oldPrice - order.product.price)
+        : 0;
+    }
+  }
+
+  countChanged(delta: number, product: Product): void {
+    this.ordersTotalCount += delta;
+    this.ordersTotalOldPrice +=
+      delta * (product.oldPrice ? product.oldPrice : product.price);
+    this.ordersTotalPrice += delta * product.price;
+    this.ordersTotalDiscount += product.oldPrice
+      ? delta * (product.oldPrice - product.price)
+      : 0;
+  }
+
+  checkboxClickHandler(): void {
+    this.allChecked = !this.allChecked;
+    let ordersTotalCount: number = 0;
+    let ordersTotalPrice: number = 0;
+    let ordersTotalOldPrice: number = 0;
+    let ordersTotalDiscount: number = 0;
+
+    for (let i = 0; i < this.orders.length; i++) {
+      this.orders[i].checked = this.allChecked;
+
+      if (this.allChecked) {
+        ordersTotalCount += this.orders[i].order.count;
+        ordersTotalPrice +=
+          this.orders[i].order.count * this.orders[i].product.price;
+
+        ordersTotalOldPrice +=
+          this.orders[i].order.count *
+          (this.orders[i].product.oldPrice
+            ? this.orders[i].product.oldPrice
+            : this.orders[i].product.price);
+        ordersTotalDiscount += this.orders[i].product.oldPrice
+          ? this.orders[i].order.count *
+            (this.orders[i].product.oldPrice - this.orders[i].product.price)
+          : 0;
+      }
+    }
+
+    this.ordersTotalCount = ordersTotalCount;
+    this.ordersTotalPrice = ordersTotalPrice;
+    this.ordersTotalOldPrice = ordersTotalOldPrice;
+    this.ordersTotalDiscount = ordersTotalDiscount;
+  }
+
+  checkout(): void {
+    this.alertService.show(
+      "'Procced to checkout' is not realized",
+      AlertType.Info
+    );
   }
 }

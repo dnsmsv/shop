@@ -1,11 +1,49 @@
-<h2>Orders</h2>
+<h2>Shopping Cart</h2>
 <h3 *ngIf="!orders?.length">There is no orders yet</h3>
 <p id="text" *ngIf="!orders?.length">Add products to Orders by 'Add to Card'</p>
 <div class="container"
   *ngIf="orders?.length">
-  <app-product 
-    *ngFor="let order of orders"
-    [product]="order.product"
-    [order]="order.favorite">
-  </app-product>
+  <input 
+    class="check" 
+    [class.checked]="allChecked"
+    type="checkbox" 
+    [ngModel]="allChecked"
+    (click)="checkboxClickHandler()">
+  <ul>
+    <li *ngFor="let order of orders">
+      <hr>
+      <app-order 
+        [product]="order.product"
+        [order]="order.order"
+        [checked]="order.checked"
+        (checkChanged)="checkChanged($event, order)"
+        (countChanged)="countChanged($event, order.product)">
+      </app-order>
+    </li>
+  </ul>
+  <div class="general">
+    <button 
+      class="checkout-btn btn"
+      [disabled]="ordersTotalCount <= 0"
+      (click)="checkout()">
+      Procced to checkout
+    </button>
+    <hr>
+    <div class="head">
+      <h4>Your cart</h4>
+      <div class="total-count">{{ ordersTotalCount + ' products' }}</div>
+    </div>
+    <div class="products">
+      <p>Products ({{ ordersTotalCount }})</p>
+      <strong>{{ ordersTotalOldPrice + ' ₽' }}</strong>
+    </div>
+    <div class="discount">
+      <p>Discount</p>
+      <strong>{{ '– ' + ordersTotalDiscount + ' ₽' }}</strong>
+    </div>
+    <div class="total">
+      <h3>Total price</h3>
+      <strong>{{ ordersTotalPrice + ' ₽' }}</strong>
+    </div>
+  </div>
 </div>

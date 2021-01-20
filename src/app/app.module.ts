@@ -28,6 +28,7 @@ import { AlertComponent } from './alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     DiscountsComponent,
     DiscountComponent,
     FavoritesComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
