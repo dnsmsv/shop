@@ -9,7 +9,8 @@
     width: 300px;
     height: 400px;
     object-fit: cover;
-    margin: 50px auto 15px auto;
+    margin-top: 50px;
+    margin-bottom: 15px;
     position: relative;
 
     .favorite-btn {
@@ -33,6 +34,7 @@
 
   .indicators {
     height: 20px;
+    width: 300px;
     display: flex;
     flex-direction: row;
     align-items: center;
