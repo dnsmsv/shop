@@ -183,6 +183,17 @@ export class FirebaseService {
       .toPromise();
   }
 
+  async searchProduct(text: string): Promise<Product> {
+    return new Promise<Product>((resolve) =>
+      this.database
+        .list<Product>('products')
+        .valueChanges()
+        .subscribe((products) => {
+          resolve(products.find((p) => p.name.toLowerCase().includes(text)));
+        })
+    );
+  }
+
   async getDiscounts(): Promise<Discount[]> {
     return await this.database
       .list<Discount>('discounts')

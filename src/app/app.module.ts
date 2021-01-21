@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { OrderComponent } from './order/order.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { OrderComponent } from './order/order.component';
     DiscountComponent,
     FavoritesComponent,
     OrderComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
