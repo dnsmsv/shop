@@ -142,8 +142,14 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   minusBtnHandler(): void {
     this.order.count--;
-    this.orderlistService.update();
-    this.firebaseService.updateOrder(this.order);
+
+    if (this.order.count >= 1) {
+      this.orderlistService.update();
+      this.firebaseService.updateOrder(this.order);
+    } else {
+      this.orderlistService.removeOrder(this.order);
+      this.firebaseService.removeOrder(this.order);
+    }
   }
 
   plusBtnHandler(): void {

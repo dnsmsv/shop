@@ -6,7 +6,7 @@ import { Order } from '../models/order.model';
   providedIn: 'root',
 })
 export class OrderlistService {
-  _orders: BehaviorSubject<Order[]>;
+  private _orders: BehaviorSubject<Order[]>;
 
   constructor() {
     this._orders = new BehaviorSubject<Order[]>([]);

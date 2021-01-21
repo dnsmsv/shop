@@ -9,7 +9,17 @@
     class="picture"
     [style.background]="pictureUrl ? 'url(' + pictureUrl + ')' : ''">
   </div>
-  <div class="name">{{ product?.name }}
+  <div class="content">
+    <div class="name">{{ product?.name }}</div>
+    <button 
+      class="favorites btn-transparent"
+      [class.exist]="inFavorites"
+      (click)="changeFavoriteState()">
+      {{ inFavorites ? 'Remove from favorites' : 'Add to favorites' }}
+    </button>
+    <button 
+      class="remove btn-transparent"
+      (click)="remove()">Remove</button>
   </div>
   <div class="price">
     <strong class="new-price">{{ product ? product.price + ' ₽' : '' }}</strong>

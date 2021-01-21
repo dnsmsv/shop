@@ -12,7 +12,17 @@
       name="check-all"
       [ngModel]="allChecked"
       (click)="checkboxClickHandler()">
-    <label for="check-all">{{ allChecked ? 'Unselect all' : 'Select all' }}</label>
+    <label 
+      for="check-all"
+      (click)="checkboxClickHandler()">
+      {{ allChecked ? 'Unselect all' : 'Select all' }}
+    </label>
+    <button 
+      class="btn-remove-selected btn-transparent"
+      [disabled]="ordersTotalCount < 1"
+      (click)="removeSelected()">
+      Remove selected
+    </button>
     <ul>
       <li *ngFor="let order of orders">
         <hr>
@@ -20,8 +30,11 @@
           [product]="order.product"
           [order]="order.order"
           [checked]="order.checked"
+          [inFavorites]="order.inFavorites"
           (checkChanged)="checkChanged($event, order)"
-          (countChanged)="countChanged($event, order.product)">
+          (countChanged)="countChanged($event, order.product)"
+          (inFavoritesChanged)="inFavoritesChanged($event, order)"
+          (removed)="removed(order)">
         </app-order>
       </li>
     </ul>

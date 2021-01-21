@@ -5,8 +5,12 @@ $light-base-color: #e0e2fd;
 $lightest-base-color: #eff0ff;
 $red-color: #ff3d5e;
 
-body {
+body,
+html {
   font-family: "Open Sans", sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .noselection {
@@ -48,6 +52,7 @@ li {
 }
 
 .btn:disabled {
+  cursor: default;
   background-color: #dbdbdb;
 }
 
@@ -70,6 +75,15 @@ li {
 .btn-transparent:hover {
   font-weight: bold;
   background-color: white;
+}
+
+.btn-transparent:disabled {
+  background-color: white;
+  color: #a0a0a0;
+}
+
+.btn-transparent:hover:disabled {
+  font-weight: normal;
 }
 
 .btn-small {
@@ -146,6 +160,7 @@ li {
 }
 
 .check {
+  cursor: pointer;
   position: relative;
   margin-right: 1em;
 }

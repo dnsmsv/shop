@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../models/alert-type';
+import { Favorite } from '../models/favorite.model';
 import { Order } from '../models/order.model';
 import { Product } from '../models/product.model';
 import { AlertService } from '../services/alert.service';
+import { FavoritesService } from '../services/favorites.service';
 import { FirebaseService } from '../services/firebase.service';
 import { OrderlistService } from '../services/orderlist.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-orderlist',
@@ -15,8 +18,10 @@ import { OrderlistService } from '../services/orderlist.service';
 export class OrderlistComponent implements OnInit {
   constructor(
     private alertService: AlertService,
+    private favoritesService: FavoritesService,
     private firebaseService: FirebaseService,
-    private orderlistService: OrderlistService
+    private orderlistService: OrderlistService,
+    private userService: UserService
   ) {}
 
   orders: any[];
@@ -42,6 +47,7 @@ export class OrderlistComponent implements OnInit {
             product: p[0],
             order: orders[i],
             checked: true,
+            inFavorites: Boolean(this.favoritesService.getFavorite(p[0].id)),
           });
           this.ordersTotalCount += orders[i].count;
           this.ordersTotalPrice += orders[i].count * p[0].price;
@@ -97,6 +103,46 @@ export class OrderlistComponent implements OnInit {
     this.ordersTotalDiscount += product.oldPrice
       ? delta * (product.oldPrice - product.price)
       : 0;
+  }
+
+  inFavoritesChanged(inFavorites: boolean, order): void {
+    if (this.userService.user.value) {
+      order.inFavorites = inFavorites;
+
+      if (inFavorites) {
+        const favorite = new Favorite(
+          this.userService.user.value.email,
+          order.product.id
+        );
+        this.firebaseService.postFavoriteProduct(favorite);
+        this.favoritesService.addFavorite(favorite);
+      } else {
+        const favorite: Favorite = this.favoritesService.getFavorite(
+          order.product.id
+        );
+        this.favoritesService.removeFavorite(favorite);
+        this.firebaseService.removeFavoriteProduct(favorite);
+      }
+    }
+  }
+
+  removed(order): void {
+    this.orders = this.orders.filter(
+      (o) => o.order.productId !== order.order.productId
+    );
+    this.orderlistService.removeOrder(order.order);
+    this.firebaseService.removeOrder(order.order);
+  }
+
+  removeSelected(): void {
+    for (let i = 0; i < this.orders.length; i++) {
+      if (this.orders[i].checked)
+        this.firebaseService.removeOrder(this.orders[i].order);
+    }
+
+    this.orderlistService.init(
+      this.orders.filter((o) => !o.checked).map((o) => o.order)
+    );
   }
 
   checkboxClickHandler(): void {

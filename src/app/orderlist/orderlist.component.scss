@@ -18,6 +18,13 @@ h3 {
 
     label {
       margin-top: 5px;
+      cursor: pointer;
+      font-size: 0.85em;
+    }
+
+    .btn-remove-selected {
+      font-size: 0.85em;
+      margin-left: 10px;
     }
   }
 

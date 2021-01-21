@@ -14,9 +14,13 @@ export class OrderComponent implements OnInit {
   @Input() product: Product;
   @Input() order: Order;
   @Input() checked: boolean = true;
+  @Input() inFavorites: boolean = false;
 
   @Output() checkChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() countChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  inFavoritesChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() removed: EventEmitter<void> = new EventEmitter<void>();
 
   counts: number[] = [];
   pictureUrl: string;
@@ -45,5 +49,14 @@ export class OrderComponent implements OnInit {
     if (this.checked) this.countChanged.emit(countVal - this.order.count);
 
     this.order.count = countVal;
+  }
+
+  changeFavoriteState(): void {
+    this.inFavorites = !this.inFavorites;
+    this.inFavoritesChanged.emit(this.inFavorites);
+  }
+
+  remove(): void {
+    this.removed.emit();
   }
 }

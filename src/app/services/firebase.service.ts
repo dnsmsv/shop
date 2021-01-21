@@ -44,7 +44,7 @@ export class FirebaseService {
 
   removeFavoriteProduct(favorite: Favorite): Promise<void> {
     if (favorite.key) {
-      return this.database.list<User>(`favorites/${favorite.key}`).remove();
+      return this.database.list(`favorites/${favorite.key}`).remove();
     }
   }
 
@@ -76,6 +76,12 @@ export class FirebaseService {
     if (order.key) {
       const orderRef = this.database.database.ref(`orders`);
       orderRef.child(order.key).update({ count: order.count });
+    }
+  }
+
+  removeOrder(order: Order): Promise<void> {
+    if (order.key) {
+      return this.database.list(`orders/${order.key}`).remove();
     }
   }
 

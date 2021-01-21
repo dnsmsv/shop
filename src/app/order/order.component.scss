@@ -11,13 +11,38 @@
     margin: 0 25px;
   }
 
-  .name {
+  .content {
     flex: 1;
+
+    .name {
+      margin-bottom: 10px;
+    }
+
+    .favorites {
+      font-size: 0.85em;
+      color: $base-color;
+      height: 1.5em;
+      line-height: 1.5em;
+      padding-left: 0px;
+    }
+
+    .favorites.exist {
+      color: $red-color;
+    }
+
+    .remove {
+      font-size: 0.85em;
+      color: $base-color;
+      border-left: lightgray 1px solid;
+      height: 1.5em;
+      line-height: 1.5em;
+      border-radius: 0px;
+    }
   }
 
   .price {
     flex: 0 auto;
-    width: 120px;
+    width: 140px;
     margin-right: 25px;
 
     .new-price {
