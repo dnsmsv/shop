@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FavoritesService } from '../services/favorites.service';
 import { FirebaseService } from '../services/firebase.service';
 
@@ -7,7 +7,7 @@ import { FirebaseService } from '../services/firebase.service';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent implements OnInit, OnDestroy {
   constructor(
     private favoritesService: FavoritesService,
     private firebaseService: FirebaseService
@@ -27,5 +27,9 @@ export class FavoritesComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.favoritesService.favorites.unsubscribe();
   }
 }

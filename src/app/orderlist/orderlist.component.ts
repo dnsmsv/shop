@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../models/alert-type';
 import { Favorite } from '../models/favorite.model';
-import { Order } from '../models/order.model';
 import { Product } from '../models/product.model';
 import { AlertService } from '../services/alert.service';
 import { FavoritesService } from '../services/favorites.service';
@@ -15,7 +14,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './orderlist.component.html',
   styleUrls: ['./orderlist.component.scss'],
 })
-export class OrderlistComponent implements OnInit {
+export class OrderlistComponent implements OnInit, OnDestroy {
   constructor(
     private alertService: AlertService,
     private favoritesService: FavoritesService,
@@ -60,6 +59,10 @@ export class OrderlistComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.orderlistService.orders.unsubscribe();
   }
 
   checkChanged(checked: boolean, order): void {

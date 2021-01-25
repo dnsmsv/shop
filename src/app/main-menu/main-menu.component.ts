@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertType } from '../models/alert-type';
 import { AlertService } from '../services/alert.service';
@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.scss'],
 })
-export class MainMenuComponent implements OnInit {
+export class MainMenuComponent implements OnInit, OnDestroy {
   constructor(
     private alertService: AlertService,
     private authService: AuthService,
@@ -54,6 +54,13 @@ export class MainMenuComponent implements OnInit {
         this.ordersCount = 0;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.catalogService.catalogVisibility.unsubscribe();
+    this.favoritesService.favorites.unsubscribe();
+    this.orderlistService.orders.unsubscribe();
+    this.userService.user.unsubscribe();
   }
 
   accountMouseenterHandler(): void {

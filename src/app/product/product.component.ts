@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -22,7 +23,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit, AfterViewInit {
+export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('picture') private picture: ElementRef;
 
   private leftPosition: number;
@@ -72,6 +73,10 @@ export class ProductComponent implements OnInit, AfterViewInit {
         });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.userService.user.unsubscribe();
   }
 
   ngAfterViewInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Favorite } from './models/favorite.model';
 import { Order } from './models/order.model';
 import { CatalogService } from './services/catalog.service';
@@ -12,7 +12,7 @@ import { UserService } from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private catalogService: CatalogService,
     private favoritesService: FavoritesService,
@@ -41,6 +41,11 @@ export class AppComponent implements OnInit {
     this.userService.loginSignupVisibility.subscribe(
       (visibility) => (this.visibility = visibility)
     );
+  }
+
+  ngOnDestroy(): void {
+    this.userService.user.unsubscribe();
+    this.userService.loginSignupVisibility.unsubscribe();
   }
 
   hideCatalog(): void {

@@ -1,10 +1,14 @@
-import { EventHandlerVars } from '@angular/compiler/src/compiler_util/expression_converter';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AlertType } from '../models/alert-type';
 import { User } from '../models/user.model';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
-import { FirebaseService } from '../services/firebase.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -12,7 +16,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './login-signup-form.component.html',
   styleUrls: ['./login-signup-form.component.scss'],
 })
-export class LoginSignupFormComponent implements OnInit {
+export class LoginSignupFormComponent implements OnInit, OnDestroy {
   constructor(
     private alertService: AlertService,
     private authService: AuthService,
@@ -31,6 +35,10 @@ export class LoginSignupFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.user.subscribe((user) => (this.authorized = user != null));
+  }
+
+  ngOnDestroy(): void {
+    this.userService.user.unsubscribe();
   }
 
   selectSignup(): void {
