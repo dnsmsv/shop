@@ -4,7 +4,9 @@ import { User } from '../models/user.model';
 import { FirebaseService } from './firebase.service';
 import { UserService } from './user.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,

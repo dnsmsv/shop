@@ -63,7 +63,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
   ],
-  providers: [AuthService, AlertService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
