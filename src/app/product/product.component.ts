@@ -80,9 +80,11 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const rect = this.picture.nativeElement.getBoundingClientRect();
-    this.leftPosition = rect.x;
-    this.width = rect.width;
+    if (this.picture.nativeElement) {
+      const rect = this.picture.nativeElement.getBoundingClientRect();
+      this.leftPosition = rect.x;
+      this.width = rect.width;
+    }
   }
 
   @HostListener('document:mousemove', ['$event'])
